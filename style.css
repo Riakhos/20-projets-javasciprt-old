@@ -490,7 +490,7 @@ p {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 460px) {
 
   /* Nav sur 2 lignes : ligne 1 = logo + titre, ligne 2 = liens */
   nav.main-nav {
