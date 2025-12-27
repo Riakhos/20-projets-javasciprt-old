@@ -263,7 +263,6 @@ h2,
 h3,
 a {
   text-align: center;
-  margin-bottom: 0.5rem;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
   animation: shimmer 5s ease-in-out infinite;
@@ -277,7 +276,6 @@ a {
 span,
 p {
   font-size: 1.2em;
-  margin-bottom: 0.5rem;
   opacity: 0.9;
   -webkit-text-fill-color: currentColor;
   color: #999;
@@ -299,8 +297,7 @@ p {
   }
 }
 
-@media (width <=820px) {
-
+@media (max-width: 820px) {
   /* Navigation responsive */
   .main-nav .nav-content {
     flex-direction: row;
@@ -386,7 +383,7 @@ p {
   }
 
   .container {
-    max-width: 360px;
+    max-width: 420px;
   }
 
   .nav-links {
