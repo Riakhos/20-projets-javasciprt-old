@@ -142,7 +142,31 @@
       </div>
     </nav>
 
-    <section class="container"></section>
+    <section class="container">
+      <h1 class="calcul">Calculateur d'<strong>IMC</strong></h1>
+      <div class="imc-calculator">
+        <div class="imc-calculator__input">
+          <div class="input-group">
+            <label for="weight"><strong>Poids</strong>(kg)<strong>:</strong></label>
+            <div class="number-input" data-target="weight">
+              <button class="step-btn down" aria-label="Diminuer">−</button>
+              <input type="number" id="weight" placeholder="Entrez votre poids" step="1" min="0" />
+              <button class="step-btn up" aria-label="Augmenter">+</button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="height"><strong>Taille</strong>(cm)<strong>:</strong></label>
+            <div class="number-input" data-target="height">
+              <button class="step-btn down" aria-label="Diminuer">−</button>
+              <input type="number" id="height" placeholder="Entrez votre taille" step="1" min="0" />
+              <button class="step-btn up" aria-label="Augmenter">+</button>
+            </div>
+          </div>
+        </div>
+        <button class="calculate-btn" id="calculate-btn">Calculer l'IMC</button>
+        <div id="result" class="result"></div>
+      </div>
+    </section>
 
     <script src="app.js"></script>
   </body>

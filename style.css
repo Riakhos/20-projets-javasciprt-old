@@ -151,6 +151,17 @@ p {
   color: #999;
 }
 
+/* Animation shimmer pour les effets de dégradé */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 /* ===========================
   HERO SECTION
 =========================== */

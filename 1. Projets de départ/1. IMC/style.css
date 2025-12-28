@@ -108,7 +108,9 @@ nav.main-nav .nav-content {
 }
 
 .dropdown:hover,
-.dropdown-menu-link:hover {
+.dropdown:focus,
+.dropdown-menu-link:hover,
+.dropdown-menu-link:focus {
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
@@ -261,7 +263,8 @@ body {
 h1,
 h2,
 h3,
-a {
+a,
+label {
   text-align: center;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
@@ -279,6 +282,249 @@ p {
   opacity: 0.9;
   -webkit-text-fill-color: currentColor;
   color: #999;
+}
+
+button {
+  margin: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
+  box-shadow: 0 8px 25px rgba(255,165,0,0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);  
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: transparent;
+  background-image: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button:hover,
+button:focus,
+button.active {
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255,165,0,0.6);
+}
+
+/* Animation shimmer pour les effets de dégradé */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===========================
+  Formulaire IMC
+============================*/
+.calcul {
+  font-weight: normal;
+}
+
+.imc-calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+.imc-calculator__input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 2px solid #28a745;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+input[type="number"] {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: bold;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffa500;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: bold;
+  opacity: 1;
+}
+
+input[type="number"]::-webkit-input-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  opacity: 1;
+}
+
+input[type="number"]::-moz-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: bold;
+  opacity: 1;
+}
+
+input[type="number"]:focus, 
+input[type="number"]:hover {
+  outline: none;
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Stylisation des flèches (spinners) pour Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button:hover,
+input[type="number"]::-webkit-outer-spin-button:hover {
+  background: transparent;
+}
+
+/* Conteneur et boutons custom pour number */
+.number-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.number-input input[type="number"] {
+  padding-right: 3.5em; /* espace pour bouton droit */
+  padding-left: 3.5em;  /* espace pour bouton gauche */
+}
+
+.step-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  background: rgba(40, 167, 69, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: transparent;
+  background-image: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 0 0 8px rgba(255,165,0,0.3);
+}
+
+.step-btn:hover,
+.step-btn:focus {
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255,165,0,0.6);
+}
+
+.step-btn.down { left: 0.25em; }
+.step-btn.up   { right: 0.25em; }
+
+.result {
+  display: block;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 2px solid #28a745;
+  border-radius: 6px;
+  width: auto;
+  text-align: center;
+}
+
+.result-number {
+  font-size: 1.5em;
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
+}
+
+.result-text {
+  font-size: 1.2em;
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
 }
 
 /* ===========================
@@ -389,6 +635,10 @@ p {
   .nav-links {
     width: 70%;
   }
+
+  .imc-calculator__input {
+  display: block;
+  }
 }
 
 @media (max-width: 520px) {
@@ -406,18 +656,38 @@ p {
   p {
     font-size: 0.8em;
   }
-
+  
   .container {
     max-width: 320px;
     margin: 0 auto 0.5rem;
   }
-
+  
   .nav-links {
     width: 100%;
   }
-
+  
   .dropdown-menu {
     width: 80%;
     top: 110%;
+  }
+  
+  .number-input {
+    gap: 0.25em;
+  }
+  
+  input[type="number"]::placeholder {
+    font-size: 0.8em;
+  }
+
+  .number-input input[type="number"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .step-btn {
+    position: static;
+    transform: none;
+    width: 20px;
+    height: 20px;
   }
 }
