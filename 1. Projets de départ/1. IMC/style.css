@@ -497,6 +497,7 @@ input[type="number"]::-webkit-outer-spin-button:hover {
   gap: 1em;
   padding: 0.5em;
   font-size: 1em;
+  background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 6px;
   width: auto;

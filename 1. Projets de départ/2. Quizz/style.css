@@ -281,6 +281,51 @@ p {
   color: #999;
 }
 
+button {
+  margin: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
+  box-shadow: 0 8px 25px rgba(255,165,0,0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);  
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: transparent;
+  background-image: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button:hover,
+button:focus,
+button.active {
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255,165,0,0.6);
+}
+
+/* Animation shimmer pour les effets de dégradé */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 /* ===========================
   RESPONSIVE NAVIGATION
 =========================== */

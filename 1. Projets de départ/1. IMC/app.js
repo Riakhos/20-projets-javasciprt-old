@@ -172,7 +172,7 @@ const BMIData = [
     { name: "Surpoids", color: "#ffa500", range: [25, 30] },
     { name: "Obésité modérée", color: "#f7df1e", range: [30, 35] },
     { name: "Obésité sévère", color: "#ff5f6d", range: [35, 40] },
-    { name: "Obésité morbide", color: "#c17aff", range: 40 },
+    { name: "Obésité morbide", color: "#c17aff", range: [40, 50] },
 ];
 
 // Sélection des éléments du DOM
@@ -220,12 +220,15 @@ calculateBtn.addEventListener("click", () => {
 
         // Affichage du résultat
         if (category) {
-            resultDiv.innerHTML = `<p class="result-number">Votre IMC est de <strong>${bmi.toFixed(
-                2
-            )}</strong></p><p class="result-text"> Ce qui correspond à la catégorie : <span style="color:${category.color
-                }; font-weight:bold;">${category.name}</span>.</p>`;
+            // Adapter le style du cadre résultat en fonction de la catégorie trouvée
+            resultDiv.style.borderColor = category.color;
+            resultDiv.style.backgroundColor = `${category.color}1a`; // légère teinte avec transparence
+
+            resultDiv.innerHTML = `
+                <p class="result-number">Votre IMC est de <strong>${bmi.toFixed(2)}</strong></p>
+                <p class="result-text"> Ce qui correspond à la catégorie : <span style="color:${category.color}; font-weight:bold;">${category.name}</span>.</p>`;
         } else {
-            resultDiv.innerHTML = "Catégorie IMC non trouvée.";
+            resultDiv.innerHTML = `<p class="result-text">Catégorie IMC non trouvée.</p>`;
         }
     } else {
         alert("Veuillez entrer des valeurs valides pour le poids et la taille.");
