@@ -118,61 +118,61 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===================================
     // BOUTONS CUSTOM POUR INPUT NUMBER
     // ===================================
-    const numberContainers = document.querySelectorAll('.number-input');
+    const numberContainers = document.querySelectorAll(".number-input");
     numberContainers.forEach((container) => {
         const input = container.querySelector('input[type="number"]');
-        const btnUp = container.querySelector('.step-btn.up');
-        const btnDown = container.querySelector('.step-btn.down');
+        const btnUp = container.querySelector(".step-btn.up");
+        const btnDown = container.querySelector(".step-btn.down");
 
         const getStep = () => {
-            const stepAttr = parseFloat(input.getAttribute('step'));
+            const stepAttr = parseFloat(input.getAttribute("step"));
             return isNaN(stepAttr) ? 1 : stepAttr;
         };
         const getMin = () => {
-            const minAttr = parseFloat(input.getAttribute('min'));
+            const minAttr = parseFloat(input.getAttribute("min"));
             return isNaN(minAttr) ? -Infinity : minAttr;
         };
         const getMax = () => {
-            const maxAttr = parseFloat(input.getAttribute('max'));
+            const maxAttr = parseFloat(input.getAttribute("max"));
             return isNaN(maxAttr) ? Infinity : maxAttr;
         };
 
         const clamp = (val) => Math.min(Math.max(val, getMin()), getMax());
 
         if (btnUp) {
-            btnUp.addEventListener('click', (e) => {
+            btnUp.addEventListener("click", (e) => {
                 e.preventDefault();
-                const current = parseFloat(input.value || '0');
+                const current = parseFloat(input.value || "0");
                 const next = clamp(current + getStep());
-                input.value = Number.isFinite(next) ? next : '';
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-                input.dispatchEvent(new Event('change', { bubbles: true }));
+                input.value = Number.isFinite(next) ? next : "";
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                input.dispatchEvent(new Event("change", { bubbles: true }));
             });
         }
         if (btnDown) {
-            btnDown.addEventListener('click', (e) => {
+            btnDown.addEventListener("click", (e) => {
                 e.preventDefault();
-                const current = parseFloat(input.value || '0');
+                const current = parseFloat(input.value || "0");
                 const next = clamp(current - getStep());
-                input.value = Number.isFinite(next) ? next : '';
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-                input.dispatchEvent(new Event('change', { bubbles: true }));
+                input.value = Number.isFinite(next) ? next : "";
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                input.dispatchEvent(new Event("change", { bubbles: true }));
             });
         }
     });
 });
 
-// ===============================  
+// ===============================
 // LOGIQUE DE L'APPLICATION IMC
 // ===============================
 
 const BMIData = [
-    { name: "Maigreur", color: "midnightblue", range: [0, 18.5] },
-    { name: "Bonne santé", color: "green", range: [18.5, 25] },
-    { name: "Surpoids", color: "lightcoral", range: [25, 30] },
-    { name: "Obésité modérée", color: "orange", range: [30, 35] },
-    { name: "Obésité sévère", color: "crimson", range: [35, 40] },
-    { name: "Obésité morbide", color: "purple", range: 40 },
+    { name: "Maigreur", color: "#5bc0ff", range: [0, 18.5] },
+    { name: "Bonne santé", color: "#28a745", range: [18.5, 25] },
+    { name: "Surpoids", color: "#ffa500", range: [25, 30] },
+    { name: "Obésité modérée", color: "#f7df1e", range: [30, 35] },
+    { name: "Obésité sévère", color: "#ff5f6d", range: [35, 40] },
+    { name: "Obésité morbide", color: "#c17aff", range: 40 },
 ];
 
 // Sélection des éléments du DOM
@@ -183,49 +183,52 @@ const resultDiv = document.getElementById("result");
 
 // Message initial
 resultDiv.innerHTML = `
-  <p class="result-number">Votre IMC est de <strong>0</strong></p>
-  <p class="result-text">En attente du résultat...</p>`;
+    <p class="result-number">Votre IMC est de <strong>0</strong></p>
+    <p class="result-text">En attente du résultat...</p>`;
 
 // Gestion du clic sur le bouton de calcul
 calculateBtn.addEventListener("click", () => {
-  // Récupération et validation des valeurs
-  const w = parseFloat(weight.value);
-  const h = parseFloat(height.value) / 100; // conversion en mètres
-  
-  // Calcul de l'IMC
-  if (w > 0 && h > 0) {
-    // IMC = poids en kg / taille² en m
-    const bmi = w / (h * h);
+    // Récupération et validation des valeurs
+    const w = parseFloat(weight.value);
+    const h = parseFloat(height.value) / 100; // conversion en mètres
 
-    // Détermination de la catégorie
-    let category = null;
+    // Calcul de l'IMC
+    if (w > 0 && h > 0) {
+        // IMC = poids en kg / taille² en m
+        const bmi = w / (h * h);
 
-    // Parcours des données pour trouver la catégorie correspondante
-    for (const item of BMIData) {
-      // Vérification si la plage est un tableau (intervalle) ou une valeur unique
-      if (Array.isArray(item.range)) {
-        // Intervalle
-        if (bmi >= item.range[0] && bmi < item.range[1]) {
-          category = item;
-          break;
+        // Détermination de la catégorie
+        let category = null;
+
+        // Parcours des données pour trouver la catégorie correspondante
+        for (const item of BMIData) {
+            // Vérification si la plage est un tableau (intervalle) ou une valeur unique
+            if (Array.isArray(item.range)) {
+                // Intervalle
+                if (bmi >= item.range[0] && bmi < item.range[1]) {
+                    category = item;
+                    break;
+                }
+            } else {
+                // Valeur unique
+                if (bmi >= item.range) {
+                    category = item;
+                    break;
+                }
+            }
         }
-      } else {
-        // Valeur unique
-        if (bmi >= item.range) {
-          category = item;
-          break;
-        }
-      }
-    }
-    
-    // Affichage du résultat
+
+        // Affichage du résultat
         if (category) {
-            resultDiv.innerHTML = `<p class="result-number">Votre IMC est de <strong>${bmi.toFixed(2)}</strong></p><p class="result-text"> Ce qui correspond à la catégorie : <span style="color:${category.color}; font-weight:bold;">${category.name}</span>.</p>`;
+            resultDiv.innerHTML = `<p class="result-number">Votre IMC est de <strong>${bmi.toFixed(
+                2
+            )}</strong></p><p class="result-text"> Ce qui correspond à la catégorie : <span style="color:${category.color
+                }; font-weight:bold;">${category.name}</span>.</p>`;
         } else {
             resultDiv.innerHTML = "Catégorie IMC non trouvée.";
         }
-  } else {
-      alert("Veuillez entrer des valeurs valides pour le poids et la taille.");
-      return;
-  }
+    } else {
+        alert("Veuillez entrer des valeurs valides pour le poids et la taille.");
+        return;
+    }
 });
