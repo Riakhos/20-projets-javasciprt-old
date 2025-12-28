@@ -1,21 +1,29 @@
-/* ===========================
+/* =============================================================
   NAVIGATION PRINCIPALE
-=========================== */
+  Barre de navigation fixe avec glassmorphism et dégradés animés
+============================================================= */
 nav.main-nav {
+  /* Dégradé de gris pour le fond principal */
   background-image: linear-gradient(132deg, #666 6%, #333 61%, #666 95%);
+  /* Positionnement fixe pour rester visible au scroll */
   position: fixed;
   top: 1rem;
   left: 1rem;
   right: 1rem;
+  /* Z-index élevé pour rester au-dessus du contenu */
   z-index: 1000;
   font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
+  /* Double shadow : ombre classique + orange pour effet glassmorphism */
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(255, 165, 0, 0.6);
+  /* Effet de flou pour glassmorphism (avec préfixe webkit) */
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  /* Bordure verte pour cohérence design */
   border: 3px solid #28a745;
   border-radius: 30px;
 }
 
+/* Conteneur interne de la navigation avec flexbox */
 nav.main-nav .nav-content {
   display: flex;
   align-items: center;
@@ -23,12 +31,13 @@ nav.main-nav .nav-content {
   margin: 1em;
   padding: 1em;
   position: relative;
+  /* Arrière-plan semi-transparent vert pour cohérence */
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 10px;
 }
 
-/* Logo */
+/* Lien du logo avec alignement flexbox */
 .logo-link {
   display: flex;
   align-items: center;
@@ -36,122 +45,153 @@ nav.main-nav .nav-content {
   padding: 0.2em 0.8em;
 }
 
+/* Image du logo avec transition fluide */
 .logo-img {
   height: 40px;
   width: auto;
+  /* Transitions pour hover et focus */
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
+/* État hover et focus du logo : agrandissement + ombre orange */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
   transform: scale(1.12);
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
+/* État actif du logo : ombre orange persistante */
 .logo-link.active .logo-img {
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
-/* Lien de navigation */
+/* Conteneur des liens de navigation avec flexbox */
 .nav-links {
   display: flex;
   justify-content: center;
   gap: 2em;
 }
 
+/* Style de base pour chaque lien de navigation */
 .nav-link {
   padding: 0.5em 1em;
   border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
+  /* Transition lisse pour tous les changements */
   transition: all 0.3s ease;
   font-size: 0.9em;
+  /* Arrière-plan vert semi-transparent */
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
+/* Texte du lien avec dégradé animé (shimmer) */
 .nav-link__projets,
 .nav-link__about {
+  /* Dégradé jaune/orange animé */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
+  /* Animation shimmer qui boucle infiniment */
   animation: shimmer 5s ease-in-out infinite;
+  /* Clip du texte pour l'effet dégradé visible */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  /* Léger glow jaune sur le texte */
   text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
 }
 
+/* État hover des liens de navigation */
 .nav-link:hover {
+  /* Changement de couleur d'arrière-plan */
   background: rgba(255, 165, 0, 0.1);
   border-color: #28a745;
   color: #ffa500;
+  /* Remet la couleur du texte visible */
   -webkit-text-fill-color: currentColor;
+  /* Ombre orange au hover */
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  /* Léger agrandissement */
   transform: scale(1.12);
 }
 
 /* ===========================
   BASE ET LAYOUT
-=========================== */
+  Reset CSS et styles globaux
+  =========================== */
+/* Reset universel : supprime marges et padding par défaut */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Body : dégradé de fond avec padding pour la nav fixe */
 body {
+  /* Dégradé jaune/orange comme fond principal */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   color: #222;
   text-align: center;
   line-height: 1.6;
+  /* Padding pour ne pas cacher le contenu sous la nav fixe */
   padding-top: 150px;
 }
 
+/* Conteneur principal avec glassmorphism et bordure verte */
 .container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem 2rem;
   box-sizing: border-box;
   font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
+  /* Ombres pour effet de profondeur */
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  /* Effet glassmorphism avec flou */
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 3px solid #28a745;
   border-radius: 30px;
+  /* Dégradé de gris pour le fond */
   background-image: linear-gradient(132deg, #666 6%, #333 61%, #666 95%);
 }
 
+/* Titres h1, h2, h3 avec dégradé animé */
 h1,
 h2,
 h3 {
   text-align: center;
   margin-bottom: 0.5rem;
+  /* Dégradé jaune/orange animé shimmer */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
   animation: shimmer 5s ease-in-out infinite;
+  /* Clip du texte pour visible le dégradé */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  /* Glow jaune léger */
   text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
 }
 
+/* Texte paragraphes et spans */
 span,
 p {
   font-size: 1.2em;
   margin-bottom: 0.5rem;
   opacity: 0.9;
+  /* Remet la couleur du texte visible (pas d'effet dégradé) */
   -webkit-text-fill-color: currentColor;
   color: #999;
 }
 
-/* Animation shimmer pour les effets de dégradé */
+/* Animation shimmer : déplace le dégradé de gauche à droite */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -162,21 +202,25 @@ p {
   }
 }
 
-/* ===========================
-  HERO SECTION
-=========================== */
+/* =================================
+  HERO SECTION (Bannière d'accueil)
+================================= */
+/* Styles communs pour hero et about-section */
 .hero,
 .about-section {
+  /* Arrière-plan vert semi-transparent */
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 10px;
 }
 
+/* Titre principal de la hero et projets */
 .hero h1,
 .projets h1 {
   font-size: 3.5em;
 }
 
+/* Conteneur des statistiques en flex */
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -184,12 +228,15 @@ p {
   margin-bottom: 0.5rem;
 }
 
+/* Boîte individuelle d'une statistique */
 .stat {
   text-align: center;
 }
 
+/* Nombre de la statistique avec dégradé animé */
 .stat-number {
   display: block;
+  /* Dégradé jaune/orange shimmer */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
   animation: shimmer 5s ease-in-out infinite;
@@ -202,25 +249,29 @@ p {
   font-weight: bold;
 }
 
+/* Label de la statistique en gris */
 .stat-label {
   font-size: 1.2em;
   opacity: 0.8;
   color: #999;
+  /* Remet la couleur visible pour le label */
   -webkit-text-fill-color: currentColor;
 }
 
 /* ===========================
-  ABOUT SECTION
-=========================== */
+  ABOUT SECTION (À propos)
+  =========================== */
 .about-section {
   padding: 2em;
 }
 
+/* Paragraphe direct enfant centré */
 .about-section>p {
   text-align: center;
   margin-bottom: 2em;
 }
 
+/* Conteneur des deux colonnes (Départ + Terminés) */
 .about-features {
   display: flex;
   justify-content: center;
@@ -229,46 +280,56 @@ p {
   flex-wrap: wrap;
 }
 
+/* Chaque boîte feature avec bordure orange */
 .about-feature {
+  /* Arrière-plan orange semi-transparent */
   background: rgba(255, 165, 0, 0.1);
   border: 2px solid #ffa500;
   border-radius: 10px;
   padding: 1.5em;
   min-width: 250px;
+  /* Transition lisse pour tous les changements */
   transition: all 0.3s ease;
 }
 
+/* Conteneur du contenu "À propos" avec texte aligné à gauche */
 .about-content {
   text-align: left;
   max-width: 900px;
   margin: 3em auto 0;
   padding: 2em;
+  /* Arrière-plan orange semi-transparent */
   background: rgba(255, 165, 0, 0.1);
   border: 2px solid #ffa500;
   border-radius: 10px;
 }
 
+/* Titres h2 à l'intérieur du contenu */
 .about-content h2 {
   text-align: left;
   margin: 1.5em 0 0.8em;
 }
 
+/* Premier h2 sans marge top */
 .about-content h2:first-child {
   margin-top: 0;
 }
 
+/* Listes ul et ol avec indentation et espacement */
 .about-content ul,
 .about-content ol {
   margin-left: 2em;
   margin-bottom: 1em;
 }
 
+/* Éléments de liste en gris avec espacement */
 .about-content li {
   color: #999;
   margin-bottom: 0.5em;
   line-height: 1.6;
 }
 
+/* Blocs de code avec arrière-plan et couleur orange */
 .about-content code {
   background: rgba(40, 167, 69, 0.1);
   padding: 0.2em 0.5em;
@@ -277,19 +338,22 @@ p {
   font-family: 'Courier New', monospace;
 }
 
+/* Texte en gras (strong) en vert */
 .about-content strong {
   color: #28a745;
   font-weight: 600;
 }
 
+/* Texte en italique (em) en orange */
 .about-content em {
   color: #ffa500;
   font-style: italic;
 }
 
-/* ===========================
-  PROJECTS GRID
-=========================== */
+/* ==================================
+  PROJECTS GRID (Grille des projets)
+================================== */
+/* Grille responsive avec auto-fit et colonne minimale de 350px */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -297,25 +361,34 @@ p {
   margin: 3em 0;
 }
 
+/* Carte individuelle d'un projet */
 .project-card {
+  /* Arrière-plan vert semi-transparent */
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 10px;
   padding: 2em;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* Transition lisse pour l'effet hover */
   transition: all 0.3s ease;
 }
 
+/* État hover de la carte : fond orange, remontée */
 .project-card:hover,
 .project-card:hover .project-number {
+  /* Change d'arrière-plan vers orange */
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
+  /* Ombre orange pour l'effet de profondeur */
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  /* Remontée légère vers le haut */
   transform: translateY(-5px);
 }
 
+/* Cercle avec le numéro du projet */
 .project-number {
+  /* Arrière-plan vert avec border circulaire */
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 50%;
@@ -324,12 +397,15 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Transition pour changement au hover */
   transition: all 0.3s ease;
   padding: 0;
 }
 
+/* Texte du numéro avec dégradé animé */
 .project-number p {
   font-weight: bold;
+  /* Dégradé jaune/orange shimmer */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
   animation: shimmer 5s ease-in-out infinite;
@@ -338,21 +414,23 @@ p {
   -webkit-text-fill-color: transparent;
   color: transparent;
   text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
+  /* Supprime la marge basse du paragraphe */
   margin-bottom: 0;
 }
 
+/* Conteneur des liens (Démo et Solution) */
 .project-links {
   display: flex;
   justify-content: center;
   gap: 2em;
 }
 
+/* Style de base pour tous les liens de projets */
 .project-link {
   padding: 0.5em 1em;
   border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
-  transition: all 0.3s ease;
   font-size: 0.9em;
   background: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
@@ -360,11 +438,14 @@ p {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  /* Transition lisse */
   transition: all 0.3s ease;
 }
 
+/* Liens Démo et Solution avec dégradé animé */
 .link-demo,
 .link-code {
+  /* Dégradé jaune/orange shimmer */
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
   animation: shimmer 5s ease-in-out infinite;
@@ -375,13 +456,18 @@ p {
   text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
 }
 
+/* État hover des liens de projets */
 .link-demo:hover,
 .link-code:hover {
+  /* Fond orange au hover */
   background: rgba(255, 165, 0, 0.1);
   border-color: #28a745;
+  /* Remet la couleur du texte visible */
   color: #ffa500;
   -webkit-text-fill-color: currentColor;
+  /* Ombre orange */
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  /* Légère remontée */
   transform: translateY(-5px);
 }
 

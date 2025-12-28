@@ -1,6 +1,8 @@
 /* ===========================
   NAVIGATION PRINCIPALE
 =========================== */
+
+/* Barre de navigation fixe avec dégradé et glassmorphism */
 nav.main-nav {
   background-image: linear-gradient(132deg, #666 6%, #333 61%, #666 95%);
   position: fixed;
@@ -8,6 +10,7 @@ nav.main-nav {
   left: 1rem;
   right: 1rem;
   z-index: 1000;
+  /* Au-dessus de tout le contenu */
   font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(255, 165, 0, 0.6);
   -webkit-backdrop-filter: blur(10px);
@@ -16,6 +19,7 @@ nav.main-nav {
   border-radius: 30px;
 }
 
+/* Conteneur interne de la navigation */
 nav.main-nav .nav-content {
   display: flex;
   align-items: center;
@@ -28,7 +32,9 @@ nav.main-nav .nav-content {
   border-radius: 10px;
 }
 
-/* Logo */
+/* ===========================
+  LOGO
+=========================== */
 .logo-link {
   display: flex;
   align-items: center;
@@ -42,13 +48,17 @@ nav.main-nav .nav-content {
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
+/* Effet hover sur le logo */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
   transform: scale(1.12);
+  /* Agrandissement */
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
-/* Lien de navigation */
+/* ===========================
+  LIENS DE NAVIGATION
+=========================== */
 .nav-links {
   display: flex;
   align-items: center;
@@ -59,6 +69,7 @@ nav.main-nav .nav-content {
   padding: -1px;
 }
 
+/* Liste des liens dans le dropdown */
 .dropdown-menu-links {
   display: block;
   align-items: center;
@@ -69,6 +80,7 @@ nav.main-nav .nav-content {
   padding: -1px;
 }
 
+/* Style de base pour dropdown et liens du menu */
 .dropdown,
 .dropdown-menu-link {
   padding: 0.5em 1em;
@@ -84,10 +96,10 @@ nav.main-nav .nav-content {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
 }
 
+/* Bouton toggle du dropdown avec dégradé animé */
 .dropdown-toggle {
   width: 100%;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
@@ -107,8 +119,11 @@ nav.main-nav .nav-content {
   white-space: nowrap;
 }
 
+/* Effet hover sur dropdown et liens */
 .dropdown:hover,
-.dropdown-menu-link:hover {
+.dropdown:focus,
+.dropdown-menu-link:hover,
+.dropdown-menu-link:focus {
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
@@ -124,6 +139,9 @@ nav.main-nav .nav-content {
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
+/* ===========================
+  MENU DROPDOWN
+=========================== */
 .dropdown-menu {
   position: absolute;
   top: 120%;
@@ -143,21 +161,27 @@ nav.main-nav .nav-content {
   padding: 0.5em;
 }
 
+/* Menu dropdown visible quand actif */
 .dropdown.active .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Animation d'entrée en cascade */
+/* ===========================
+  ANIMATIONS DROPDOWN
+=========================== */
+/* Animation d'entrée en cascade depuis la gauche */
 .dropdown.active .dropdown-menu li {
   animation: slideInFromLeft 1s ease forwards;
 }
 
+/* Animation de sortie vers la droite */
 .dropdown:not(.active) .dropdown-menu li {
   animation: slideInFromRight 1s ease forwards;
 }
 
+/* Délais progressifs pour effet cascade */
 .dropdown.active .dropdown-menu li:nth-child(1) {
   animation-delay: 0.3s;
 }
@@ -178,6 +202,7 @@ nav.main-nav .nav-content {
   animation-delay: 1.5s;
 }
 
+/* Keyframes pour slide depuis la gauche */
 @keyframes slideInFromLeft {
   from {
     opacity: 0;
@@ -192,6 +217,7 @@ nav.main-nav .nav-content {
   }
 }
 
+/* Keyframes pour slide vers la droite */
 @keyframes slideOutToRight {
   from {
     opacity: 1;
@@ -206,9 +232,12 @@ nav.main-nav .nav-content {
   }
 }
 
-/* Menu burger */
+/* ===========================
+  MENU BURGER (MOBILE)
+=========================== */
 .menu-burger {
   display: none;
+  /* Caché par défaut */
   position: absolute;
   right: 0.5em;
   top: 50%;
@@ -223,6 +252,7 @@ nav.main-nav .nav-content {
   transition: transform 0.25s;
 }
 
+/* Effet hover sur le burger */
 .menu-burger img:hover {
   transform: scale(1.1);
 }
@@ -230,20 +260,24 @@ nav.main-nav .nav-content {
 /* ===========================
   BASE ET LAYOUT
 =========================== */
+/* Reset global */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Style du body avec dégradé de fond */
 body {
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   color: #222;
   text-align: center;
   line-height: 1.6;
   padding-top: 150px;
+  /* Espace pour la navigation fixe */
 }
 
+/* Conteneur principal avec glassmorphism */
 .container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -258,6 +292,10 @@ body {
   background-image: linear-gradient(132deg, #666 6%, #333 61%, #666 95%);
 }
 
+/* ===========================
+  TYPOGRAPHIE
+=========================== */
+/* Titres avec dégradé animé */
 h1,
 h2,
 h3,
@@ -273,6 +311,7 @@ a {
   text-shadow: 0 0 20px rgba(247, 223, 30, 0.3);
 }
 
+/* Textes normaux */
 span,
 p {
   font-size: 1.2em;
@@ -282,8 +321,59 @@ p {
 }
 
 /* ===========================
+  BOUTONS
+=========================== */
+button {
+  margin: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
+  box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: transparent;
+  background-image: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* États hover/focus/actif des boutons */
+button:hover,
+button:focus,
+button.active {
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Animation shimmer pour les dégradés */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===========================
   RESPONSIVE NAVIGATION
 =========================== */
+
+/* Tablettes et petits écrans (≤ 1200px) */
 @media (max-width: 1200px) {
   .p {
     max-width: 500px;
@@ -297,8 +387,10 @@ p {
   }
 }
 
+/* Tablettes (≤ 820px) */
 @media (max-width: 820px) {
-  /* Navigation responsive */
+
+  /* Affichage du menu burger */
   .main-nav .nav-content {
     flex-direction: row;
     padding: 0 0.5em;
@@ -308,6 +400,7 @@ p {
     display: block;
   }
 
+  /* Menu mobile avec animation */
   .nav-links {
     display: flex;
     flex-direction: column;
@@ -330,15 +423,18 @@ p {
     pointer-events: none;
   }
 
+  /* Menu ouvert */
   .nav-links.open {
     animation: slideInFromLeft 1s ease forwards;
     pointer-events: auto;
   }
 
+  /* Menu fermé */
   .nav-links:not(.open) {
     animation: slideOutToRight 1s ease forwards;
   }
 
+  /* Dropdown pleine largeur */
   .dropdown {
     width: 100%;
     text-align: center;
@@ -350,6 +446,7 @@ p {
     font-weight: bold;
   }
 
+  /* Désactiver le transform sur hover en mobile */
   .dropdown:hover,
   .dropdown.active,
   .dropdown-toggle:hover,
@@ -357,6 +454,7 @@ p {
     transform: none;
   }
 
+  /* Centrer le dropdown-menu */
   .dropdown-menu {
     left: 50%;
     transform: translateX(-50%) translateY(-10px);
@@ -366,12 +464,12 @@ p {
     transform: translateX(-50%) translateY(0);
   }
 
-  /* Ajuster l'espacement pour le menu mobile */
   .nav-links {
     gap: 0;
   }
 }
 
+/* Smartphones (≤ 760px) */
 @media (max-width: 760px) {
   h1 {
     font-size: 1.5em;
@@ -391,9 +489,10 @@ p {
   }
 }
 
+/* Très petits écrans (≤ 520px) */
 @media (max-width: 520px) {
 
-  /* Petites réductions visuelles pour très petit écran */
+  /* Réductions visuelles */
   .logo-img {
     height: 32px;
   }

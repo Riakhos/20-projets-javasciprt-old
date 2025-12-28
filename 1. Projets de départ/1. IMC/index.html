@@ -142,28 +142,56 @@
       </div>
     </nav>
 
+    <!-- ===========================
+      FORMULAIRE CALCULATEUR IMC
+    ============================ -->
     <section class="container">
       <h1 class="calcul">Calculateur d'<strong>IMC</strong></h1>
+
       <div class="imc-calculator">
+        <!-- Inputs pour poids et taille -->
         <div class="imc-calculator__input">
+          <!-- Input Poids -->
           <div class="input-group">
-            <label for="weight"><strong>Poids</strong>(kg)<strong>:</strong></label>
+            <label for="weight"
+              ><strong>Poids</strong>(kg)<strong>:</strong></label
+            >
             <div class="number-input" data-target="weight">
               <button class="step-btn down" aria-label="Diminuer">−</button>
-              <input type="number" id="weight" placeholder="Entrez votre poids" step="1" min="0" />
+              <input
+                type="number"
+                id="weight"
+                placeholder="Entrez votre poids"
+                step="1"
+                min="0"
+              />
               <button class="step-btn up" aria-label="Augmenter">+</button>
             </div>
           </div>
+
+          <!-- Input Taille -->
           <div class="input-group">
-            <label for="height"><strong>Taille</strong>(cm)<strong>:</strong></label>
+            <label for="height"
+              ><strong>Taille</strong>(cm)<strong>:</strong></label
+            >
             <div class="number-input" data-target="height">
               <button class="step-btn down" aria-label="Diminuer">−</button>
-              <input type="number" id="height" placeholder="Entrez votre taille" step="1" min="0" />
+              <input
+                type="number"
+                id="height"
+                placeholder="Entrez votre taille"
+                step="1"
+                min="0"
+              />
               <button class="step-btn up" aria-label="Augmenter">+</button>
             </div>
           </div>
         </div>
+
+        <!-- Bouton de calcul -->
         <button class="calculate-btn" id="calculate-btn">Calculer l'IMC</button>
+
+        <!-- Zone d'affichage du résultat -->
         <div id="result" class="result"></div>
       </div>
     </section>

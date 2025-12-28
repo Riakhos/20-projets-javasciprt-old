@@ -14,42 +14,57 @@
 </head>
 
 <body>
-    <!-- Navigation -->
+    <!-- ===========================
+        NAVIGATION PRINCIPALE
+    =========================== -->
     <nav class="main-nav">
         <div class="nav-content">
+            <!-- Logo avec lien vers la page d'accueil (actif quand on est sur index.html) -->
             <a href="index.html" class="logo-link active">
                 <img src="./assets/Image20241113115512.png" alt="Image d'accueil" class="logo-img" />
             </a>
+            <!-- Texte de secours si l'image du logo ne charge pas -->
             <h1 class="logo-fallback">JS Projects</h1>
+            <!-- Liste des liens de navigation : Projets et À propos -->
             <ul class="nav-links">
                 <li class="nav-link">
+                    <!-- Lien ancre vers la section #projets -->
                     <a href="#projets" class="nav-link__projets">Projets</a>
                 </li>
                 <li class="nav-link">
+                    <!-- Lien ancre vers la section #apropos -->
                     <a href="#apropos" class="nav-link__about">À propos</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ===========================
+        SECTION HÉRO (BANNIÈRE)
+    =========================== -->
     <section class="container">
         <div class="hero">
+            <!-- Titre principal de la page -->
             <h1>20 Projets JavaScript</h1>
+            <!-- Sous-titre descriptif -->
             <p>
                 Une collection complète de projets pour maîtriser JavaScript, du
                 niveau débutant à avancé
             </p>
 
+            <!-- Statistiques affichées en trois colonnes -->
             <div class="hero-stats">
+                <!-- Stat 1 : Nombre de projets -->
                 <div class="stat">
                     <span class="stat-number">20</span>
                     <span class="stat-label">Projets</span>
                 </div>
+                <!-- Stat 2 : Niveaux de difficulté -->
                 <div class="stat">
                     <span class="stat-number">3</span>
                     <span class="stat-label">Niveaux</span>
                 </div>
+                <!-- Stat 3 : Pourcentage JavaScript pur -->
                 <div class="stat">
                     <span class="stat-number">100%</span>
                     <span class="stat-label">JavaScript</span>
@@ -58,31 +73,45 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- ===========================
+        SECTION PROJETS
+    =========================== --> 
     <section id="projets" class="container">
+        <!-- Titre de la section -->
         <h1>Tous les Projets</h1>
 
+        <!-- Grille responsive affichant les 20 cartes de projets -->
         <div class="projects-grid">
-            <!-- Projet 1 -->
+            <!-- ===========================
+                PROJET 1 : IMC
+            =========================== -->
             <div class="project-card">
+                <!-- Numéro du projet affiché dans un cercle -->
                 <div class="project-number">
                     <p>1</p>
                 </div>
+                <!-- Titre du projet -->
                 <h3 class="project-title">IMC</h3>
+                <!-- Description courte du projet et technologies utilisées -->
                 <p class="project-description">
-                    Calculateur d’IMC avec saisie poids/taille, validation des inputs,
+                    Calculateur d'IMC avec saisie poids/taille, validation des inputs,
                     calcul et classement via IMCData. Utilise les événements JavaScript,
                     la manipulation du DOM et affiche les résultats dynamiquement.
                 </p>
+                <!-- Liens vers la démo et la solution -->
                 <div class="project-links">
+                    <!-- Lien vers la version de départ à développer -->
                     <a href="./1. Projets de départ/1. IMC/index.html" class="project-link link-demo"
                         target="_blank">Démo</a>
+                    <!-- Lien vers la solution complète de référence -->
                     <a href="./2. Projets terminés/1. IMC/index.html" class="project-link link-code"
                         target="_blank">Solution</a>
                 </div>
             </div>
 
-            <!-- Projet 2 -->
+            <!-- ===========================
+                PROJET 2 : Quizz 
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>2</p>
@@ -101,7 +130,9 @@
                 </div>
             </div>
 
-            <!-- Projet 3 -->
+            <!-- ===========================
+                PROJET 3 : WikiApp
+            ============================ -->
             <div class="project-card">
                 <div class="project-number">
                     <p>3</p>
@@ -120,7 +151,9 @@
                 </div>
             </div>
 
-            <!-- Projet 4 -->
+            <!-- ===========================
+                PROJET 4 : Cookies
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>4</p>
@@ -138,7 +171,9 @@
                 </div>
             </div>
 
-            <!-- Projet 5 -->
+            <!-- ===========================
+                PROJET 5 : AppMétéo
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>5</p>
@@ -157,7 +192,9 @@
                 </div>
             </div>
 
-            <!-- Projet 6 -->
+            <!-- ===========================
+                PROJET 6 : CouleursJS
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>6</p>
@@ -176,7 +213,9 @@
                 </div>
             </div>
 
-            <!-- Projet 7 -->
+            <!-- ===========================
+                PROJET 7 : Pomodoro
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>7</p>
@@ -194,7 +233,9 @@
                 </div>
             </div>
 
-            <!-- Projet 8 -->
+            <!-- ===========================
+                PROJET 8 : ValidationForm
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>8</p>
@@ -213,7 +254,9 @@
                 </div>
             </div>
 
-            <!-- Projet 9 -->
+            <!-- ===========================
+                PROJET 9 : MemoryCard
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>9</p>
@@ -231,7 +274,9 @@
                 </div>
             </div>
 
-            <!-- Projet 10 -->
+            <!-- ===========================
+                PROJET 10 : ScrollInfini
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>10</p>
@@ -249,7 +294,9 @@
                 </div>
             </div>
 
-            <!-- Projet 11 -->
+            <!-- ===========================
+                PROJET 11 : Slider
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>11</p>
@@ -267,7 +314,9 @@
                 </div>
             </div>
 
-            <!-- Projet 12 -->
+            <!-- ===========================
+                PROJET 12 : Générateur de mot de passe
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>12</p>
@@ -286,7 +335,9 @@
                 </div>
             </div>
 
-            <!-- Projet 13 -->
+            <!-- ===========================
+                PROJET 13 : Liste filtrable
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>13</p>
@@ -304,7 +355,9 @@
                 </div>
             </div>
 
-            <!-- Projet 14 -->
+            <!-- ===========================
+                PROJET 14 : CustomLecteurVidéo
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>14</p>
@@ -322,7 +375,9 @@
                 </div>
             </div>
 
-            <!-- Projet 15 -->
+            <!-- ===========================
+                PROJET 15 : JeuDuMorpion
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>15</p>
@@ -341,7 +396,9 @@
                 </div>
             </div>
 
-            <!-- Projet 16 -->
+            <!-- ===========================
+                PROJET 16 : ParticulesJS
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>16</p>
@@ -360,7 +417,9 @@
                 </div>
             </div>
 
-            <!-- Projet 17 -->
+            <!-- ===========================
+                PROJET 17 : Animations
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>17</p>
@@ -378,7 +437,9 @@
                 </div>
             </div>
 
-            <!-- Projet 18 -->
+            <!-- ===========================
+                PROJET 18 : TypingGame
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>18</p>
@@ -397,7 +458,9 @@
                 </div>
             </div>
 
-            <!-- Projet 19 -->
+            <!-- ===========================
+                PROJET 19 : Calculatrice
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>19</p>
@@ -416,7 +479,9 @@
                 </div>
             </div>
 
-            <!-- Projet 20 -->
+            <!-- ===========================
+                PROJET 20 : Player audio
+            =========================== -->
             <div class="project-card">
                 <div class="project-number">
                     <p>20</p>
@@ -437,28 +502,37 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ===========================
+        SECTION À PROPOS
+    =========================== -->
     <section id="apropos" class="container">
         <div class="about-section">
+            <!-- Titre de la section -->
             <h1 class="about-title">À propos de cette collection</h1>
+            <!-- Description générale du projet -->
             <p>
                 Cette collection de 20 projets JavaScript a été conçue pour vous
                 accompagner dans votre apprentissage, du niveau débutant aux concepts
                 avancés. Chaque projet inclut deux versions :
             </p>
 
+            <!-- Deux colonnes présentant les types de projets -->
             <div class="about-features">
+                <!-- Version de départ : à développer -->
                 <div class="about-feature">
                     <h2>🚀 Projets de départ</h2>
                     <p>Votre version à développer avec HTML/CSS/JS de base</p>
                 </div>
+                <!-- Version terminée : solutions de référence -->
                 <div class="about-feature">
                     <h2>📚 Projets terminés</h2>
                     <p>Solutions complètes et optimisées de référence</p>
                 </div>
             </div>
 
+            <!-- Contenu informatif principal -->
             <div class="about-content">
+                <!-- Structure du dépôt -->
                 <h2>📂 Structure du dépôt</h2>
                 <ul>
                     <li>
@@ -474,6 +548,7 @@
                     </li>
                 </ul>
 
+                <!-- Instructions pour lancer un projet -->
                 <h2>🚀 Comment lancer un projet localement</h2>
                 <ol>
                     <li>
@@ -493,6 +568,7 @@
                     </li>
                 </ol>
 
+                <!-- Conventions de code -->
                 <h2>✨ Conventions et bonnes pratiques</h2>
                 <ul>
                     <li>
@@ -513,6 +589,7 @@
                     </li>
                 </ul>
 
+                <!-- Conseils rapides -->
                 <h2>💡 Conseils rapides</h2>
                 <ul>
                     <li>Avancer projet par projet, lire HTML/CSS puis JavaScript</li>
@@ -525,6 +602,7 @@
                     </li>
                 </ul>
 
+                <!-- Crédits et licence -->
                 <h2>📜 Crédits & Licence</h2>
                 <p>
                     Source : cours « 20 projets JavaScript »<br />
