@@ -404,13 +404,22 @@ button.active {
 }
 
 /* Grille de boutons pour les réponses du quiz */
-/* Utilise auto-fit pour s'adapter au nombre de réponses */
+/* Grille fixe 2 colonnes x 2 lignes, quelle que soit la taille du texte */
 .btn-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1em;
+  display: grid; /* Active CSS Grid */
+  grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Toujours 2 colonnes */
+  grid-auto-rows: 1fr; /* Hauteur des lignes équilibrée */
+  align-items: stretch; /* Étire les éléments pour remplir la cellule */
+  gap: 1em; /* Espacement entre les boutons */
   width: 100%;
   margin-top: 1em;
+}
+
+/* Les boutons remplissent toute la cellule et gèrent les textes longs */
+.btn-grid .btn {
+  height: 100%;
+  white-space: normal; /* Autorise le retour à la ligne */
+  word-break: break-word; /* Coupe les mots très longs si nécessaire */
 }
 
 /* Classe utilitaire pour cacher des éléments */
@@ -517,6 +526,14 @@ button.active {
 
   .nav-links {
     gap: 0;
+  }
+
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    width: 100%;
+    margin-top: 1em;
   }
 }
 
