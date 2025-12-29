@@ -2,6 +2,18 @@
 // GESTION NAVIGATION
 // ===========================
 
+// Listener pour les messages des extensions de navigateur
+// Empêche les erreurs d'extensions qui essaient de communiquer avec la page
+window.addEventListener(
+    "message",
+    (event) => {
+        // Ignorer les messages des extensions (ils viennent généralement de l'extension elle-même)
+        // Cette fonction retourne undefined (pas true) pour éviter l'erreur
+        return;
+    },
+    false
+);
+
 document.addEventListener("DOMContentLoaded", function () {
     // ===========================
     // GESTION DU MENU BURGER

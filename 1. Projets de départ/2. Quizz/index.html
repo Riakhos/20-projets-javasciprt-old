@@ -44,7 +44,7 @@
             <div class="dropdown-menu">
               <ul class="dropdown-menu-links">
                 <li class="dropdown-menu-link">
-                  <a href="../1. IMC/index.html">1. Prêt Bancaire</a>
+                  <a href="../1. IMC/index.html">1. IMC</a>
                 </li>
                 <!-- Projet actuel (Quizz) marqué comme active -->
                 <li class="dropdown-menu-link active">
@@ -71,17 +71,13 @@
             <div class="dropdown-menu">
               <ul class="dropdown-menu-links">
                 <li class="dropdown-menu-link">
-                  <a href="../6. CouleursJS/index.html"
-                    >6. Générateur Dégradés</a
-                  >
+                  <a href="../6. CouleursJS/index.html">6. Générateur Dégradés</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../7. Pomodoro/index.html">7. Pomodoro</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../8. ValidationForm/index.html"
-                    >8. Validation Formulaire</a
-                  >
+                  <a href="../8. ValidationForm/index.html">8. Validation Formulaire</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../9. MemoryCard/index.html">9. Jeu Mémoire</a>
@@ -104,19 +100,13 @@
                   <a href="../11. Slider/index.html">11. Slider</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../12. Générateur de mot de passe/index.html"
-                    >12. Générateur Mot de Passe</a
-                  >
+                  <a href="../12. Générateur de mot de passe/index.html">12. Générateur Mot de Passe</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../13. Liste filtrable/index.html"
-                    >13. Liste Filtrable</a
-                  >
+                  <a href="../13. Liste filtrable/index.html">13. Liste Filtrable</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../14. CustomLecteurVidéo/index.html"
-                    >14. Lecteur Vidéo</a
-                  >
+                  <a href="../14. CustomLecteurVidéo/index.html">14. Lecteur Vidéo</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../15. JeuDuMorpion/index.html">15. Jeu Morpion</a>
@@ -155,9 +145,24 @@
     </nav>
 
     <!-- =================
-      Formulaire QUIZZ JS
+      FORMULAIRE QUIZZ JS
     ================== -->
-    <section class="container"></section>
+    <section class="container">
+      <h1 class="title"><strong>Quizz</strong> Culture Générale. <span>☑️</span></h1>
+      <div class="quiz-container hide">
+        <form id="question-container" class="question-container hide">
+          <h2 id="question" class="question">Question text</h2>
+          <div id="answer-buttons" class="btn-grid">
+            <!-- Boutons de réponses générés dynamiquement -->
+          </div>
+        </form>
+      </div>
+      <div class="controls">
+        <button id="start-btn" class="start-btn">Démarrer le Quiz</button>
+        <button id="next-btn" class="next-btn hide">Question Suivante</button>
+        <button id="submit-btn" type="submit" class="submit-btn hide">Valider <span>✔️</span></button>
+      </div>
+    </section>
 
     <!-- Liaison avec le fichier JavaScript qui gère la logique du quiz -->
     <script src="app.js"></script>

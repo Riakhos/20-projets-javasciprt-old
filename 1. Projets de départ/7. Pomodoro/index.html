@@ -13,12 +13,13 @@
     />
   </head>
   <body>
-    <!-- ===========================
+     <!-- ====================================================
       NAVIGATION PRINCIPALE
-      =========================== -->
+      Barre de navigation fixe avec dropdowns et menu burger
+    ===================================================== -->
     <nav class="main-nav">
       <div class="nav-content">
-        <!-- Logo/Accueil -->
+        <!-- Logo avec lien vers la page d'accueil principale -->
         <a href="../../index.html" class="logo-link">
           <img
             src="./assets/Image20241113115512.png"
@@ -27,20 +28,22 @@
           />
         </a>
 
-        <!-- Bouton menu burger (mobile) -->
+        <!-- Bouton menu burger pour la navigation mobile -->
         <div class="menu-burger">
           <img src="./assets/burger.svg" alt="Menu" id="burger-menu" />
         </div>
 
-        <!-- Liste des projets -->
+        <!-- Liste des projets organisée en 4 groupes de 5 -->
         <ul id="nav-links" class="nav-links">
-          <!-- Groupe 1-5 -->
+          <!-- =============================
+            GROUPE 1-5 : Projets débutants
+          ============================= -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle">Projets 1-5 ▼</a>
             <div class="dropdown-menu">
               <ul class="dropdown-menu-links">
                 <li class="dropdown-menu-link">
-                  <a href="../1. IMC/index.html">1. Prêt Bancaire</a>
+                  <a href="../1. IMC/index.html">1. IMC</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../2. Quiz/index.html">2. Quiz</a>
@@ -57,24 +60,24 @@
               </ul>
             </div>
           </li>
-
-          <!-- Groupe 6-10 -->
+          
+          <!-- ==================================
+          GROUPE 6-10 : Projets intermédiaires
+          =================================== -->
           <li class="dropdown">
+            <!-- Lien toggle avec classe active pour le groupe actuel -->
             <a href="#" class="dropdown-toggle active">Projets 6-10 ▼</a>
             <div class="dropdown-menu">
               <ul class="dropdown-menu-links">
                 <li class="dropdown-menu-link">
-                  <a href="../6. CouleursJS/index.html"
-                    >6. Générateur Dégradés</a
-                  >
+                  <a href="../6. CouleursJS/index.html">6. Générateur Dégradés</a>
                 </li>
+                <!-- Projet actuel (Pomodoro) marqué comme active -->
                 <li class="dropdown-menu-link active">
                   <a href="./index.html">7. Pomodoro</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../8. ValidationForm/index.html"
-                    >8. Validation Formulaire</a
-                  >
+                  <a href="../8. ValidationForm/index.html">8. Validation Formulaire</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../9. MemoryCard/index.html">9. Jeu Mémoire</a>
@@ -86,7 +89,9 @@
             </div>
           </li>
 
-          <!-- Groupe 11-15 -->
+          <!-- ===========================================
+            GROUPE 11-15 : Projets intermédiaires avancés
+          ============================================ -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle">Projets 11-15 ▼</a>
             <div class="dropdown-menu">
@@ -95,19 +100,13 @@
                   <a href="../11. Slider/index.html">11. Slider</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../12. Générateur de mot de passe/index.html"
-                    >12. Générateur Mot de Passe</a
-                  >
+                  <a href="../12. Générateur de mot de passe/index.html">12. Générateur Mot de Passe</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../13. Liste filtrable/index.html"
-                    >13. Liste Filtrable</a
-                  >
+                  <a href="../13. Liste filtrable/index.html">13. Liste Filtrable</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../14. CustomLecteurVidéo/index.html"
-                    >14. Lecteur Vidéo</a
-                  >
+                  <a href="../14. CustomLecteurVidéo/index.html">14. Lecteur Vidéo</a>
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../15. JeuDuMorpion/index.html">15. Jeu Morpion</a>
@@ -116,7 +115,9 @@
             </div>
           </li>
 
-          <!-- Groupe 16-20 -->
+          <!-- ============================
+            GROUPE 16-20 : Projets avancés
+          ============================= -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle">Projets 16-20 ▼</a>
             <div class="dropdown-menu">
@@ -143,8 +144,12 @@
       </div>
     </nav>
 
+    <!-- =============================
+      CONTENEUR PRINCIPAL Pomodoro JS
+    ============================== -->
     <section class="container"></section>
 
+    <!-- Liaison avec le fichier JavaScript qui gère la logique du pomodoro -->
     <script src="app.js"></script>
   </body>
 </html>

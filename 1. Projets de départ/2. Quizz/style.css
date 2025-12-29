@@ -299,7 +299,8 @@ body {
 h1,
 h2,
 h3,
-a {
+a,
+label {
   text-align: center;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
@@ -325,6 +326,7 @@ p {
 =========================== */
 button {
   margin: auto;
+  margin-bottom: 0.5em;
   padding: 1em;
   box-sizing: border-box;
   font-family: 'Open Sans', 'Roboto', Arial, sans-serif;
@@ -368,6 +370,55 @@ button.active {
     background-position: 200% 0;
   }
 }
+
+/* ===================
+  FORMULAIRE QUIZZ JS
+====================*/
+.title {
+  font-weight: normal;
+}
+
+/* Conteneur principal du quiz */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Conteneur qui affiche la question actuelle avec style et ombre */
+.question-container {
+  padding: 1em;
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  border: 2px solid #28a745;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  border-radius: 10px;
+}
+
+/* Grille de boutons pour les réponses du quiz */
+/* Utilise auto-fit pour s'adapter au nombre de réponses */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1em;
+  width: 100%;
+  margin-top: 1em;
+}
+
+/* Classe utilitaire pour cacher des éléments */
+/* Utilisée pour masquer les boutons et sections selon l'état du quiz */
+.hide {
+  display: none;
+}
+
 
 /* ===========================
   RESPONSIVE NAVIGATION
