@@ -26,7 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Toggle la classe 'open' pour afficher/masquer la navigation mobile
         burger.addEventListener("click", () => {
             // Bascule entre l'état ouvert et fermé
-            navUl.classList.toggle("open");
+            const isOpen = navUl.classList.contains("open");
+            if (isOpen) {
+                // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                navUl.classList.add("closing");
+                // Retire la classe 'open' après l'animation (1s)
+                setTimeout(() => {
+                    navUl.classList.remove("open", "closing");
+                }, 1000);
+            } else {
+                // Retire la classe 'closing' et ajoute 'open' pour ouvrir le menu
+                navUl.classList.remove("closing");
+                navUl.classList.add("open");
+            }
             // Change l'icône du burger en fonction de l'état du menu
             burger.src = navUl.classList.contains("open")
                 ? "./assets/close.svg" // Icône de fermeture quand le menu est ouvert
@@ -60,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
             link.addEventListener("click", () => {
                 // Uniquement en mode mobile (largeur <= 820px)
                 if (window.innerWidth <= 820) {
-                    // Fermer le menu et réinitialiser l'icône
-                    navUl.classList.remove("open");
-                    burger.src = "./assets/burger.svg";
+                    // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                    navUl.classList.add("closing");
+                    // Retire la classe 'open' après l'animation (1s)
+                    setTimeout(() => {
+                        navUl.classList.remove("open", "closing");
+                        burger.src = "./assets/burger.svg";
+                    }, 1000);
                 }
             });
         });
@@ -153,11 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // GESTION QUIZZ
 // ===========================
 
-// Données pour l'ancien système de notation (non utilisé actuellement)
-// QUESTION ET RÉPONSES
-const responses = ["c", "a", "b", "a", "c"];
-const emojis = ["✔️", "✨", "👀", "😭", "👎"];
-
 // ===========================
 // ÉLÉMENTS DU DOM
 // Sélection de tous les éléments nécessaires au fonctionnement du quiz
@@ -169,12 +180,14 @@ const quizContainer = document.querySelector(".quiz-container"); // Conteneur pr
 const questionContainer = document.getElementById("question-container"); // Conteneur de la question et des réponses
 const questionElement = document.getElementById("question"); // Élément qui affiche le texte de la question
 const answerButtonsElement = document.getElementById("answer-buttons"); // Conteneur des boutons de réponse
+const resultsElement = document.getElementById("results"); // Conteneur dédié à l'affichage des résultats
 
 // ===========================
 // VARIABLES GLOBALES
 // ===========================
 let shuffledQuestions; // Tableau des questions mélangées aléatoirement
 let currentQuestionIndex; // Index de la question actuellement affichée
+let userAnswers = {}; // Objet pour stocker les réponses de l'utilisateur {index: answerText}
 
 // ===========================
 // ÉCOUTEURS D'ÉVÉNEMENTS
@@ -184,17 +197,18 @@ let currentQuestionIndex; // Index de la question actuellement affichée
 // DÉMARRER LE QUIZZ
 startButton.addEventListener("click", startQuiz);
 
-// Passer à la question suivante
-// Incrémente l'index et affiche la prochaine question
-// QUESTION SUIVANTE
+// Passer à la question suivante au clic sur le bouton "Suivant"
 nextButton.addEventListener("click", () => {
+    // Passe à la question suivante
     currentQuestionIndex++;
     setNextQuestion();
 });
 
-// Soumettre la réponse sélectionnée (système alternatif)
-// SOUMETTRE LA RÉPONSE
-submitButton.addEventListener("click", submitAnswer);
+// Valider les réponses au clic sur le bouton "Valider"
+submitButton.addEventListener("click", () => {
+    // Affiche le résumé des réponses lorsque l'utilisateur clique sur "Valider"
+    showResults();
+});
 
 // ===========================
 // FONCTION : Démarrer le quiz
@@ -207,6 +221,11 @@ function startQuiz() {
     shuffledQuestions = questions.sort(() => Math.random() - 0.5);
     // Commence à la première question
     currentQuestionIndex = 0;
+    // Réinitialise les réponses de l'utilisateur
+    userAnswers = {};
+    // Réinitialise et masque le conteneur des résultats
+    resultsElement.innerHTML = "";
+    resultsElement.classList.add("hide");
     // Affiche les conteneurs du quiz
     quizContainer.classList.remove("hide");
     questionContainer.classList.remove("hide");
@@ -230,12 +249,18 @@ function setNextQuestion() {
 // Crée dynamiquement les boutons de réponse pour la question donnée
 // ===========================
 function showQuestion(question) {
+    // Affiche le conteneur du quiz
+    quizContainer.classList.remove("hide");
+    // Cache le bouton "Valider"
+    submitButton.classList.add("hide");
     // Affiche le texte de la question
     questionElement.innerText = question.question;
     // Pour chaque réponse possible, créer un bouton
     question.answers.forEach((answer) => {
         // Crée un élément bouton
         const button = document.createElement("button");
+        // Définit explicitement le type pour éviter le comportement par défaut
+        button.type = "button";
         // Définit le texte du bouton avec la réponse
         button.innerText = answer.text;
         // Ajoute la classe CSS pour le style
@@ -260,8 +285,6 @@ function resetState() {
     clearStatusClass(document.body);
     // Cache le bouton "Suivant"
     nextButton.classList.add("hide");
-    // Affiche le bouton "Soumettre" (pour le système alternatif)
-    submitButton.classList.remove("hide");
     // Supprime tous les boutons de réponse existants
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild);
@@ -270,51 +293,29 @@ function resetState() {
 
 // ===========================
 // FONCTION : Sélectionner une réponse
-// Gère le clic sur un bouton de réponse et affiche le résultat
+// Gère le clic sur un bouton de réponse et enregistre le choix
 // ===========================
 function selectAnswer(e) {
     // Récupère le bouton cliqué
     const selectedButton = e.target;
-    // Vérifie si c'est la bonne réponse via l'attribut data-correct
-    const correct = selectedButton.dataset.correct;
-    // Applique la classe CSS 'correct' ou 'wrong' au body (pour l'effet visuel global)
-    setStatusClass(document.body, correct);
-    // Pour chaque bouton de réponse, applique la classe appropriée
-    // Cela colore en vert la bonne réponse et en rouge la mauvaise
+    // Enlève la classe 'selected' de tous les autres boutons
     Array.from(answerButtonsElement.children).forEach((button) => {
-        setStatusClass(button, button.dataset.correct);
+        button.classList.remove("selected");
     });
-    // Affiche le bouton "Suivant" pour continuer
-    nextButton.classList.remove("hide");
-    // Cache le bouton "Soumettre"
-    submitButton.classList.add("hide");
-}
-
-// ===========================
-// FONCTION : Soumettre la réponse (système alternatif)
-// Valide la réponse pré-sélectionnée par l'utilisateur
-// ===========================
-function submitAnswer() {
-    // Trouve le bouton qui a la classe 'selected'
-    const selectedButton = Array.from(answerButtonsElement.children).find(
-        (button) => button.classList.contains("selected")
-    );
-    // Si aucune réponse n'est sélectionnée, ne rien faire
-    if (!selectedButton) return;
-
-    // Vérifie si c'est la bonne réponse
-    const correct = selectedButton.dataset.correct;
-    // Applique les classes CSS appropriées au body
-    setStatusClass(document.body, correct);
-    // Colore tous les boutons selon leur statut (correct/incorrect)
-    Array.from(answerButtonsElement.children).forEach((button) => {
-        setStatusClass(button, button.dataset.correct);
-    });
-
-    // Affiche le bouton "Suivant"
-    nextButton.classList.remove("hide");
-    // Cache le bouton "Soumettre"
-    submitButton.classList.add("hide");
+    // Ajoute la classe 'selected' au bouton cliqué
+    selectedButton.classList.add("selected");
+    // Enregistre la réponse sélectionnée dans l'objet userAnswers
+    userAnswers[currentQuestionIndex] = {
+        text: selectedButton.innerText,
+        correct: selectedButton.dataset.correct === "true",
+    };
+    // Affiche le bouton "Suivant" ou "Valider"
+    if (currentQuestionIndex < shuffledQuestions.length - 1) {
+        nextButton.classList.remove("hide");
+    } else {
+        submitButton.classList.remove("hide");
+        nextButton.classList.add("hide");
+    }
 }
 
 // ===========================
@@ -339,6 +340,135 @@ function setStatusClass(element, correct) {
 function clearStatusClass(element) {
     element.classList.remove("correct");
     element.classList.remove("wrong");
+}
+
+// ===========================
+// FONCTION : Afficher les résultats
+// Affiche un résumé de toutes les questions avec les réponses correctes et incorrectes
+// ===========================
+function showResults() {
+    // Cache le conteneur des questions et le bouton "Valider"
+    quizContainer.classList.add("hide");
+    submitButton.classList.add("hide");
+
+    // Nettoie et affiche le conteneur de résultats dédié
+    resultsElement.innerHTML = "";
+    resultsElement.classList.remove("hide");
+    resultsElement.style.display = "flex";
+    resultsElement.style.flexDirection = "column";
+    resultsElement.style.gap = "1.5em";
+
+    // Parcourt toutes les questions et affiche les résultats
+    let correctCount = 0;
+    shuffledQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer && userAnswer.correct;
+
+        if (isCorrect) {
+            correctCount++;
+        }
+
+        // Crée un élément pour chaque question
+        const questionResult = document.createElement("div");
+        questionResult.style.padding = "1.5em";
+        questionResult.style.borderRadius = "10px";
+        questionResult.style.border = "2px solid";
+        questionResult.style.borderColor = isCorrect ? "#28a745" : "#ff6b6b";
+        questionResult.style.backgroundColor = isCorrect
+            ? "rgba(40, 167, 69, 0.1)"
+            : "rgba(255, 107, 107, 0.1)";
+
+        // Affiche la question
+        const questionText = document.createElement("h3");
+        questionText.style.marginBottom = "1em";
+        questionText.style.color = isCorrect ? "#28a745" : "#ff6b6b";
+        questionText.innerText = question.question;
+        questionResult.appendChild(questionText);
+
+        // Affiche la réponse de l'utilisateur
+        const userAnswerText = document.createElement("p");
+        userAnswerText.style.marginBottom = "0.5em";
+        userAnswerText.style.color = isCorrect ? "#28a745" : "#ff6b6b";
+        userAnswerText.innerText = `Votre réponse : ${userAnswer ? userAnswer.text : "Non répondu"
+            }`;
+        questionResult.appendChild(userAnswerText);
+
+        resultsElement.appendChild(questionResult);
+    });
+
+    // Tableau d'emojis pour l'affichage des résultats
+    const emojis = ["✔️", "✨", "👀", "😭", "👎"];
+
+    // Phrase récapitulative avec emojis selon le score
+    let summaryText = "";
+    let detailText =
+        "Retentez une autre réponse dans les cases rouges, puis re-validez !";
+
+    switch (correctCount) {
+        case 0:
+            summaryText = `${emojis[4]} Peut mieux faire ! ${emojis[4]}`; // 👎
+            break;
+        case 1:            
+            summaryText = `${emojis[3]} Il reste quelques erreurs. ${emojis[3]}`; // 😭
+            break;
+        case 2:
+            summaryText = `${emojis[2]} Encore un effort ... ${emojis[2]}`; // ✨ + 👀
+            break;
+        case 3:
+            summaryText = `${emojis[1]} Vous y êtes presque ! ${emojis[1]}`; // ✨
+            break;
+        case 4:
+            summaryText = `${emojis[0]} Bravo, c'est un sans faute ! ${emojis[0]}`; // ✔️
+            detailText = "Quelle culture ...";
+            break;
+        default:
+            summaryText = "Continuez !";
+            break;
+    }
+
+    const summaryBlock = document.createElement("div");
+    summaryBlock.style.textAlign = "center";
+    summaryBlock.style.padding = "1em";
+    summaryBlock.style.border = "2px solid #28a745";
+    summaryBlock.style.borderRadius = "10px";
+    summaryBlock.style.backgroundColor = "rgba(40, 167, 69, 0.05)";
+
+    const summaryP = document.createElement("p");
+    summaryP.style.fontWeight = "bold";
+    summaryP.style.marginBottom = "0.5em";
+    summaryP.innerText = summaryText;
+
+    const detailP = document.createElement("p");
+    detailP.style.marginBottom = "0.5em";
+    detailP.innerText = detailText;
+
+    const scoreP = document.createElement("p");
+    scoreP.style.marginBottom = "0";
+    scoreP.innerText = `Score : ${correctCount} / ${shuffledQuestions.length}`;
+
+    summaryBlock.appendChild(summaryP);
+    summaryBlock.appendChild(detailP);
+    summaryBlock.appendChild(scoreP);
+
+    // Insère le récap avant la liste détaillée
+    resultsElement.insertBefore(summaryBlock, resultsElement.firstChild);
+
+    // Affiche un bouton pour recommencer
+    const restartBtn = document.createElement("button");
+    restartBtn.type = "button";
+    restartBtn.innerText = "Recommencer le quiz";
+    restartBtn.classList.add("btn");
+    restartBtn.style.marginTop = "2em";
+    restartBtn.addEventListener("click", () => {
+        // Réinitialise l'interface et retour au début
+        resultsElement.classList.add("hide");
+        resultsElement.innerHTML = "";
+        startButton.classList.remove("hide");
+        quizContainer.classList.add("hide");
+        questionContainer.classList.remove("hide");
+        answerButtonsElement.innerHTML = "";
+    });
+    resultsElement.appendChild(restartBtn);
 }
 
 // ===========================

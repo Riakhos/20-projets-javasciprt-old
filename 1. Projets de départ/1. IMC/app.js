@@ -26,10 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Toggle la classe 'open' pour afficher/masquer la navigation mobile
         burger.addEventListener("click", () => {
             // Bascule entre l'état ouvert et fermé
-            navUl.classList.toggle("open");
+            const isOpen = navUl.classList.contains("open");
+            if (isOpen) {
+                // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                navUl.classList.add("closing");
+                // Retire la classe 'open' après l'animation (1s)
+                setTimeout(() => {
+                    navUl.classList.remove("open", "closing");
+                }, 1000);
+            } else {
+                // Retire la classe 'closing' et ajoute 'open' pour ouvrir le menu
+                navUl.classList.remove("closing");
+                navUl.classList.add("open");
+            }
             // Change l'icône du burger en fonction de l'état du menu
             burger.src = navUl.classList.contains("open")
-                ? "./assets/close.svg"  // Icône de fermeture quand le menu est ouvert
+                ? "./assets/close.svg" // Icône de fermeture quand le menu est ouvert
                 : "./assets/burger.svg"; // Icône burger par défaut
         });
 
@@ -46,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fermer le menu quand on clique sur un lien en mode mobile
         // Améliore l'UX en fermant automatiquement le menu après navigation
-        
+
         // Sélectionner tous les liens directs sauf les dropdown-toggle
         const navLinks = navUl.querySelectorAll("a:not(.dropdown-toggle)");
         // Ajouter aussi tous les liens dans les dropdown-menu
@@ -60,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
             link.addEventListener("click", () => {
                 // Uniquement en mode mobile (largeur <= 820px)
                 if (window.innerWidth <= 820) {
-                    // Fermer le menu et réinitialiser l'icône
-                    navUl.classList.remove("open");
-                    burger.src = "./assets/burger.svg";
+                    // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                    navUl.classList.add("closing");
+                    // Retire la classe 'open' après l'animation (1s)
+                    setTimeout(() => {
+                        navUl.classList.remove("open", "closing");
+                        burger.src = "./assets/burger.svg";
+                    }, 1000);
                 }
             });
         });
