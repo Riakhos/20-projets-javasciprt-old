@@ -354,9 +354,6 @@ function showResults() {
     // Nettoie et affiche le conteneur de résultats dédié
     resultsElement.innerHTML = "";
     resultsElement.classList.remove("hide");
-    resultsElement.style.display = "flex";
-    resultsElement.style.flexDirection = "column";
-    resultsElement.style.gap = "1.5em";
 
     // Parcourt toutes les questions et affiche les résultats
     let correctCount = 0;
@@ -370,25 +367,16 @@ function showResults() {
 
         // Crée un élément pour chaque question
         const questionResult = document.createElement("div");
-        questionResult.style.padding = "1.5em";
-        questionResult.style.borderRadius = "10px";
-        questionResult.style.border = "2px solid";
-        questionResult.style.borderColor = isCorrect ? "#28a745" : "#ff6b6b";
-        questionResult.style.backgroundColor = isCorrect
-            ? "rgba(40, 167, 69, 0.1)"
-            : "rgba(255, 107, 107, 0.1)";
+        questionResult.classList.add("result-item");
+        questionResult.classList.add(isCorrect ? "correct" : "incorrect");
 
         // Affiche la question
         const questionText = document.createElement("h3");
-        questionText.style.marginBottom = "1em";
-        questionText.style.color = isCorrect ? "#28a745" : "#ff6b6b";
         questionText.innerText = question.question;
         questionResult.appendChild(questionText);
 
         // Affiche la réponse de l'utilisateur
         const userAnswerText = document.createElement("p");
-        userAnswerText.style.marginBottom = "0.5em";
-        userAnswerText.style.color = isCorrect ? "#28a745" : "#ff6b6b";
         userAnswerText.innerText = `Votre réponse : ${userAnswer ? userAnswer.text : "Non répondu"
             }`;
         questionResult.appendChild(userAnswerText);
@@ -400,50 +388,74 @@ function showResults() {
     const emojis = ["✔️", "✨", "👀", "😭", "👎"];
 
     // Phrase récapitulative avec emojis selon le score
-    let summaryText = "";
     let detailText =
         "Retentez une autre réponse dans les cases rouges, puis re-validez !";
 
+    // Variables pour les emojis et le texte
+    let emoji1 = "";
+    let textContent = "";
+    let emoji2 = "";
+
     switch (correctCount) {
         case 0:
-            summaryText = `${emojis[4]} Peut mieux faire ! ${emojis[4]}`; // 👎
+            emoji1 = emojis[4]; // 👎
+            textContent = " Peut mieux faire ! ";
+            emoji2 = emojis[4]; // 👎
             break;
         case 1:            
-            summaryText = `${emojis[3]} Il reste quelques erreurs. ${emojis[3]}`; // 😭
+            emoji1 = emojis[3]; // 😭
+            textContent = " Il reste quelques erreurs. ";
+            emoji2 = emojis[3]; // 😭
             break;
         case 2:
-            summaryText = `${emojis[2]} Encore un effort ... ${emojis[2]}`; // ✨ + 👀
+            emoji1 = emojis[2]; // 👀
+            textContent = " Encore un effort ... ";
+            emoji2 = emojis[2]; // 👀
             break;
         case 3:
-            summaryText = `${emojis[1]} Vous y êtes presque ! ${emojis[1]}`; // ✨
+            emoji1 = emojis[1]; // ✨
+            textContent = " Vous y êtes presque ! ";
+            emoji2 = emojis[1]; // ✨
             break;
         case 4:
-            summaryText = `${emojis[0]} Bravo, c'est un sans faute ! ${emojis[0]}`; // ✔️
+            emoji1 = emojis[0]; // ✔️
+            textContent = " Bravo, c'est un sans faute ! ";
+            emoji2 = emojis[0]; // ✔️
             detailText = "Quelle culture ...";
             break;
         default:
-            summaryText = "Continuez !";
+            textContent = "Continuez !";
             break;
     }
 
     const summaryBlock = document.createElement("div");
-    summaryBlock.style.textAlign = "center";
-    summaryBlock.style.padding = "1em";
-    summaryBlock.style.border = "2px solid #28a745";
-    summaryBlock.style.borderRadius = "10px";
-    summaryBlock.style.backgroundColor = "rgba(40, 167, 69, 0.05)";
+    summaryBlock.classList.add("results-summary");
 
-    const summaryP = document.createElement("p");
-    summaryP.style.fontWeight = "bold";
-    summaryP.style.marginBottom = "0.5em";
-    summaryP.innerText = summaryText;
+    // Créer le h2 avec la classe title et les emojis dans des spans
+    const summaryP = document.createElement("h2");
+    summaryP.classList.add("title");
+
+    // Ajouter le premier emoji dans un span
+    if (emoji1) {
+        const span1 = document.createElement("span");
+        span1.innerText = emoji1;
+        summaryP.appendChild(span1);
+    }
+
+    // Ajouter le texte
+    summaryP.appendChild(document.createTextNode(textContent));
+
+    // Ajouter le deuxième emoji dans un span
+    if (emoji2) {
+        const span2 = document.createElement("span");
+        span2.innerText = emoji2;
+        summaryP.appendChild(span2);
+    }
 
     const detailP = document.createElement("p");
-    detailP.style.marginBottom = "0.5em";
     detailP.innerText = detailText;
 
-    const scoreP = document.createElement("p");
-    scoreP.style.marginBottom = "0";
+    const scoreP = document.createElement("h3");
     scoreP.innerText = `Score : ${correctCount} / ${shuffledQuestions.length}`;
 
     summaryBlock.appendChild(summaryP);
@@ -458,7 +470,6 @@ function showResults() {
     restartBtn.type = "button";
     restartBtn.innerText = "Recommencer le quiz";
     restartBtn.classList.add("btn");
-    restartBtn.style.marginTop = "2em";
     restartBtn.addEventListener("click", () => {
         // Réinitialise l'interface et retour au début
         resultsElement.classList.add("hide");

@@ -407,11 +407,16 @@ button.active,
 /* Grille de boutons pour les réponses du quiz */
 /* Grille fixe 2 colonnes x 2 lignes, quelle que soit la taille du texte */
 .btn-grid {
-  display: grid; /* Active CSS Grid */
-  grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Toujours 2 colonnes */
-  grid-auto-rows: 1fr; /* Hauteur des lignes équilibrée */
-  align-items: stretch; /* Étire les éléments pour remplir la cellule */
-  gap: 1em; /* Espacement entre les boutons */
+  display: grid;
+  /* Active CSS Grid */
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  /* Toujours 2 colonnes */
+  grid-auto-rows: 1fr;
+  /* Hauteur des lignes équilibrée */
+  align-items: stretch;
+  /* Étire les éléments pour remplir la cellule */
+  gap: 1em;
+  /* Espacement entre les boutons */
   width: 100%;
   margin-top: 1em;
 }
@@ -419,8 +424,10 @@ button.active,
 /* Les boutons remplissent toute la cellule et gèrent les textes longs */
 .btn-grid .btn {
   height: 100%;
-  white-space: normal; /* Autorise le retour à la ligne */
-  word-break: break-word; /* Coupe les mots très longs si nécessaire */
+  white-space: normal;
+  /* Autorise le retour à la ligne */
+  word-break: break-word;
+  /* Coupe les mots très longs si nécessaire */
 }
 
 /* Classe utilitaire pour cacher des éléments */
@@ -429,6 +436,69 @@ button.active,
   display: none;
 }
 
+/* Conteneur des résultats finaux du quiz */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0;
+}
+
+/* Bloc individuel de résultat pour chaque question */
+.result-item {
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px solid;
+}
+
+/* Résultat correct */
+.result-item.correct {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Résultat incorrect */
+.result-item.incorrect {
+  border-color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* Texte de réponse dans les résultats */
+.result-item p {
+  margin-bottom: 0.5em;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
+}
+
+.result-item.correct p {
+  color: #28a745;
+}
+
+.result-item.incorrect p {
+  color: #ff6b6b;
+}
+
+/* Bloc récapitulatif des résultats */
+.results-summary {
+  text-align: center;
+  padding: 1em;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.results-summary p {
+  margin-bottom: 0.5em;
+  -webkit-text-fill-color: currentColor;
+}
+
+.results-summary p:first-child {
+  font-weight: bold;
+}
+
+.results-summary p:last-child {
+  margin-bottom: 0;
+}
 
 
 
