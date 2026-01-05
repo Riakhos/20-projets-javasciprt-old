@@ -526,6 +526,12 @@ input[type="text"]:hover {
   border-radius: 10px;
 }
 
+/* Classe utilitaire pour cacher des éléments */
+/* Utilisée pour masquer les boutons et sections selon l'état du quiz */
+.hide {
+  display: none;
+}
+
 /* Carte individuelle de résultat : titre + snippet */
 .wiki-card {
   text-align: left;
@@ -536,12 +542,77 @@ input[type="text"]:hover {
 }
 
 /* Effet hover sur les cartes : mise en valeur au survol */
-.wiki-card:hover, .wiki-card:focus {
+.wiki-card:hover,
+.wiki-card:focus {
   outline: none;
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
-  color:#ffa500;
+  color: #ffa500;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* ===========================
+  LOADER (INDICATEUR DE CHARGEMENT)
+=========================== */
+/* Conteneur principal du loader : 3 points animés
+   Masqué par défaut, affiché via JavaScript pendant les requêtes API */
+.wiki-app__loader {
+  display: none;
+  /* Masqué par défaut */
+  justify-content: center;
+  /* Centre les points horizontalement */
+  margin: 30px 0;
+}
+
+/* Point individuel du loader : cercle jaune avec animation */
+.wiki-app__loader-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  /* Forme circulaire */
+  background: #f7df1e;
+  /* Jaune vif */
+  margin: 0 6px;
+  /* Espacement entre les points */
+  animation: load 0.6s infinite ease-in-out alternate;
+  /* Animation rebond alternée infinie */
+  box-shadow: 0 0 15px rgba(247, 223, 30, 0.4);
+  /* Lueur jaune autour du point */
+}
+
+/* Délais d'animation pour créer un effet de vague
+   Chaque point démarre l'animation à un moment différent */
+.wiki-app__loader-dot--delay-1 {
+  animation-delay: -0.4s;
+  /* Premier point : démarre en premier */
+}
+
+.wiki-app__loader-dot--delay-2 {
+  animation-delay: -0.2s;
+  /* Deuxième point : démarre 0.2s après le premier */
+}
+
+.wiki-app__loader-dot--delay-3 {
+  animation-delay: 0s;
+  /* Troisième point : démarre en dernier */
+}
+
+/* Animation de rebond vertical : les points montent et descendent
+   Alternate fait revenir l'animation de 100% vers 0% automatiquement */
+@keyframes load {
+  0% {
+    transform: translateY(0px) scale(1);
+    /* Position de départ : bas, taille normale */
+    opacity: 0.7;
+    /* Légèrement transparent */
+  }
+
+  100% {
+    transform: translateY(-20px) scale(1.2);
+    /* Monte de 20px et grossit de 20% */
+    opacity: 1;
+    /* Opacité maximale */
+  }
 }
 
 /* ===========================

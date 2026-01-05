@@ -169,87 +169,135 @@ document.addEventListener("DOMContentLoaded", function () {
 // GESTION WIKIAPP
 // ===========================
 
-// API ENDPOINT : `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${searchInput}`
+// API ENDPOINT : `https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${searchInput}`
 
+// Initialisation de WikiApp après le chargement complet du DOM
 document.addEventListener("DOMContentLoaded", () => {
+    // ===========================
+    // SÉLECTION DES ÉLÉMENTS DOM
+    // ===========================
     const form = document.getElementById("wiki-form");
     const input = document.getElementById("wiki-input");
     const results = document.getElementById("wiki-results");
     const errorMsg = document.querySelector(".wiki-app__error-msg");
     const loader = document.querySelector(".wiki-app__loader");
 
+    // Vérification de la présence de tous les éléments requis
+    // Si un élément manque, on arrête l'exécution pour éviter des erreurs
     if (!form || !input || !results || !errorMsg || !loader) {
         console.warn("WikiApp: éléments manquants dans le DOM");
         return;
     }
 
+    // ===========================
+    // CONFIGURATION DE L'API
+    // ===========================
+    // Endpoint de l'API Wikipedia (version française)
+    // Paramètres : format JSON, origine acceptée, limite de 20 résultats
     const ENDPOINT =
         "https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=";
 
+    // ===========================
+    // FONCTIONS UTILITAIRES
+    // ===========================
+
+    // Afficher ou masquer le loader pendant le chargement
+    // Utilise 'flex' pour respecter le justify-content du CSS
     const toggleLoader = (show) => {
-        loader.style.display = show ? "block" : "none";
+        loader.style.display = show ? "flex" : "none";
     };
 
+    // Afficher les résultats de recherche sous forme de cartes
     const renderResults = (items) => {
+        // Vider le conteneur de résultats et retirer la classe 'hide'
         results.innerHTML = "";
+        results.classList.remove("hide");
+
+        // Utiliser un fragment pour optimiser les performances DOM
         const fragment = document.createDocumentFragment();
 
+        // Créer une carte pour chaque résultat
         items.forEach(({ title, snippet, pageid }) => {
+            // Article contenant le résultat
             const card = document.createElement("article");
             card.className = "wiki-card";
 
+            // Lien cliquable vers l'article Wikipedia
             const link = document.createElement("a");
             link.href = `https://fr.wikipedia.org/?curid=${pageid}`;
-            link.target = "_blank";
-            link.rel = "noopener";
+            link.target = "_blank"; // Ouvrir dans un nouvel onglet
+            link.rel = "noopener"; // Sécurité : éviter l'accès à window.opener
 
+            // Titre de l'article
             const h3 = document.createElement("h3");
             h3.textContent = title;
 
+            // Extrait (snippet) de l'article avec les balises HTML
             const p = document.createElement("p");
             p.innerHTML = `${snippet}...`;
 
+            // Assembler les éléments
             link.append(h3, p);
             card.appendChild(link);
             fragment.appendChild(card);
         });
 
+        // Ajouter tous les résultats au DOM en une seule fois
         results.appendChild(fragment);
     };
 
+    // ===========================
+    // GESTION DE LA SOUMISSION DU FORMULAIRE
+    // ===========================
     form.addEventListener("submit", async (e) => {
+        // Empêcher le rechargement de la page
         e.preventDefault();
+
+        // Récupérer et nettoyer la valeur de l'input
         const query = input.value.trim();
 
+        // Validation : vérifier que l'input n'est pas vide
         if (!query) {
             errorMsg.textContent = "Entrez un terme à rechercher.";
             return;
         }
 
+        // Réinitialiser l'état avant une nouvelle recherche
         errorMsg.textContent = "";
         results.innerHTML = "";
-        toggleLoader(true);
+        results.classList.add("hide"); // Masquer les anciens résultats
+        toggleLoader(true); // Afficher le loader
 
         try {
+            // Requête à l'API Wikipedia avec le terme encodé
             const response = await fetch(`${ENDPOINT}${encodeURIComponent(query)}`);
+
+            // Vérifier si la requête a réussi (status 200-299)
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
 
+            // Parser la réponse JSON
             const data = await response.json();
+
+            // Extraire les résultats de recherche (ou tableau vide si absent)
             const items = data?.query?.search || [];
 
+            // Vérifier si des résultats ont été trouvés
             if (!items.length) {
                 errorMsg.textContent = "Aucun résultat trouvé.";
                 return;
             }
 
+            // Afficher les résultats
             renderResults(items);
         } catch (err) {
+            // Gestion des erreurs (réseau, API, parsing, etc.)
             console.error("WikiApp fetch error", err);
             errorMsg.textContent =
                 "Erreur lors de la récupération des résultats. Réessayez.";
         } finally {
+            // Dans tous les cas, masquer le loader à la fin
             toggleLoader(false);
         }
     });
