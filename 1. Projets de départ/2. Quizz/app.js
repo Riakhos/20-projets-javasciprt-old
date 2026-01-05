@@ -369,6 +369,7 @@ function showResults() {
         const questionResult = document.createElement("div");
         questionResult.classList.add("result-item");
         questionResult.classList.add(isCorrect ? "correct" : "incorrect");
+        questionResult.setAttribute("data-index", index);
 
         // Affiche la question
         const questionText = document.createElement("h3");
@@ -380,6 +381,14 @@ function showResults() {
         userAnswerText.innerText = `Votre réponse : ${userAnswer ? userAnswer.text : "Non répondu"
             }`;
         questionResult.appendChild(userAnswerText);
+
+        // Ajouter un event listener sur les résultats incorrects
+        if (!isCorrect) {
+            questionResult.style.cursor = "pointer";
+            questionResult.addEventListener("click", () => {
+                editAnswer(index);
+            });
+        }
 
         resultsElement.appendChild(questionResult);
     });
@@ -402,23 +411,28 @@ function showResults() {
             textContent = " Peut mieux faire ! ";
             emoji2 = emojis[4]; // 👎
             break;
-        case 1:            
+        case 1:
             emoji1 = emojis[3]; // 😭
+            textContent = " Peut mieux faire ! ";
+            emoji2 = emojis[3]; // 😭
+            break;
+        case 2:            
+            emoji1 = emojis[2]; // 👀
             textContent = " Il reste quelques erreurs. ";
             emoji2 = emojis[3]; // 😭
             break;
-        case 2:
-            emoji1 = emojis[2]; // 👀
+        case 3:
+            emoji1 = emojis[1]; // ✨
             textContent = " Encore un effort ... ";
             emoji2 = emojis[2]; // 👀
             break;
-        case 3:
+        case 4:
             emoji1 = emojis[1]; // ✨
             textContent = " Vous y êtes presque ! ";
             emoji2 = emojis[1]; // ✨
             break;
-        case 4:
-            emoji1 = emojis[0]; // ✔️
+        case 5:
+            emoji1 = emojis[1]; // ✨
             textContent = " Bravo, c'est un sans faute ! ";
             emoji2 = emojis[0]; // ✔️
             detailText = "Quelle culture ...";
@@ -468,6 +482,7 @@ function showResults() {
     // Affiche un bouton pour recommencer
     const restartBtn = document.createElement("button");
     restartBtn.type = "button";
+    restartBtn.id = "restart-btn";
     restartBtn.innerText = "Recommencer le quiz";
     restartBtn.classList.add("btn");
     restartBtn.addEventListener("click", () => {
@@ -480,6 +495,113 @@ function showResults() {
         answerButtonsElement.innerHTML = "";
     });
     resultsElement.appendChild(restartBtn);
+}
+
+// ===========================
+// FONCTION : Modifier une réponse
+// Affiche le formulaire pour re-répondre à une question
+// ===========================
+function editAnswer(questionIndex) {
+    // Cache les résultats et affiche le formulaire
+    resultsElement.classList.add("hide");
+    questionContainer.classList.remove("hide");
+    quizContainer.classList.remove("hide");
+
+    // Affiche la question à modifier
+    const question = shuffledQuestions[questionIndex];
+    const questionElement = document.getElementById("question");
+    questionElement.innerText = question.question;
+
+    // Vide et remplit les boutons de réponse
+    answerButtonsElement.innerHTML = "";
+    const currentAnswer = userAnswers[questionIndex];
+
+    question.answers.forEach((answer) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("btn");
+        button.innerText = answer.text;
+
+        // Marquer la réponse actuelle comme sélectionnée
+        if (currentAnswer && currentAnswer.text === answer.text) {
+            button.classList.add("selected");
+        }
+
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Retire la classe selected de tous les boutons
+            Array.from(answerButtonsElement.children).forEach((btn) => {
+                btn.classList.remove("selected");
+            });
+            // Ajoute la classe selected au bouton cliqué
+            button.classList.add("selected");
+            // Enregistre la réponse
+            userAnswers[questionIndex] = answer;
+        });
+
+        answerButtonsElement.appendChild(button);
+    });
+
+    // Affiche le bouton "Valider" à la place du bouton "Recommencer"
+    const restartBtn = document.getElementById("restart-btn");
+    if (restartBtn) {
+        restartBtn.style.display = "none";
+    }
+
+    // Affiche le bouton "Valider" (submit-btn)
+    submitButton.classList.remove("hide");
+
+    // Ajoute un event listener temporaire pour valider les modifications
+    const handleValidateModifications = () => {
+        // Cache le formulaire et le bouton valider
+        questionContainer.classList.add("hide");
+        quizContainer.classList.add("hide");
+        submitButton.classList.add("hide");
+
+        // Affiche les résultats mis à jour
+        resultsElement.classList.remove("hide");
+        if (restartBtn) {
+            restartBtn.style.display = "block";
+        }
+
+        // Rafraîchit l'affichage des résultats
+        const resultItems = resultsElement.querySelectorAll(".result-item");
+        let newCorrectCount = 0;
+
+        resultItems.forEach((item, index) => {
+            const questionIndex = parseInt(item.getAttribute("data-index"));
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer && userAnswer.correct;
+
+            // Mise à jour de la classe
+            item.classList.remove("correct", "incorrect");
+            item.classList.add(isCorrect ? "correct" : "incorrect");
+
+            // Mise à jour du texte de la réponse
+            const answerTextElement = item.querySelector("p");
+            answerTextElement.innerText = `Votre réponse : ${userAnswer ? userAnswer.text : "Non répondu"}`;
+
+            // Mise à jour du curseur
+            if (!isCorrect) {
+                item.style.cursor = "pointer";
+            } else {
+                item.style.cursor = "default";
+            }
+
+            if (isCorrect) {
+                newCorrectCount++;
+            }
+        });
+
+        // Mise à jour du score dans le résumé
+        const scoreElement = resultsElement.querySelector(".results-summary h3");
+        scoreElement.innerText = `Score : ${newCorrectCount} / ${shuffledQuestions.length}`;
+
+        // Retire le event listener
+        submitButton.removeEventListener("click", handleValidateModifications);
+    };
+
+    submitButton.addEventListener("click", handleValidateModifications);
 }
 
 // ===========================

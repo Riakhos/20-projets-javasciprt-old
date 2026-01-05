@@ -660,4 +660,10 @@ button.active,
     width: 80%;
     top: 110%;
   }
+
+  .quiz-container {
+    padding: 0.2em;
+    border: none;
+  }
+
 }
