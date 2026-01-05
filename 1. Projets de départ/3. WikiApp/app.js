@@ -26,10 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Toggle la classe 'open' pour afficher/masquer la navigation mobile
         burger.addEventListener("click", () => {
             // Bascule entre l'état ouvert et fermé
-            navUl.classList.toggle("open");
+            const isOpen = navUl.classList.contains("open");
+            if (isOpen) {
+                // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                navUl.classList.add("closing");
+                // Retire la classe 'open' après l'animation (1s)
+                setTimeout(() => {
+                    navUl.classList.remove("open", "closing");
+                }, 1000);
+            } else {
+                // Retire la classe 'closing' et ajoute 'open' pour ouvrir le menu
+                navUl.classList.remove("closing");
+                navUl.classList.add("open");
+            }
             // Change l'icône du burger en fonction de l'état du menu
             burger.src = navUl.classList.contains("open")
-                ? "./assets/close.svg"  // Icône de fermeture quand le menu est ouvert
+                ? "./assets/close.svg" // Icône de fermeture quand le menu est ouvert
                 : "./assets/burger.svg"; // Icône burger par défaut
         });
 
@@ -46,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fermer le menu quand on clique sur un lien en mode mobile
         // Améliore l'UX en fermant automatiquement le menu après navigation
-        
+
         // Sélectionner tous les liens directs sauf les dropdown-toggle
         const navLinks = navUl.querySelectorAll("a:not(.dropdown-toggle)");
         // Ajouter aussi tous les liens dans les dropdown-menu
@@ -60,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
             link.addEventListener("click", () => {
                 // Uniquement en mode mobile (largeur <= 820px)
                 if (window.innerWidth <= 820) {
-                    // Fermer le menu et réinitialiser l'icône
-                    navUl.classList.remove("open");
-                    burger.src = "./assets/burger.svg";
+                    // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                    navUl.classList.add("closing");
+                    // Retire la classe 'open' après l'animation (1s)
+                    setTimeout(() => {
+                        navUl.classList.remove("open", "closing");
+                        burger.src = "./assets/burger.svg";
+                    }, 1000);
                 }
             });
         });
@@ -147,71 +163,94 @@ document.addEventListener("DOMContentLoaded", function () {
             closeAllDropdowns();
         }
     });
+});
 
-    // ===================================
-    // BOUTONS CUSTOM POUR INPUT NUMBER
-    // ===================================
-	// Création de boutons +/- stylisés pour remplacer les flèches natives des inputs number
-	// Permet un meilleur contrôle visuel et une meilleure expérience utilisateur
-	
-	const numberContainers = document.querySelectorAll(".number-input");
-	numberContainers.forEach((container) => {
-		// Récupération des éléments pour chaque container d'input
-		const input = container.querySelector('input[type="number"]');
-		const btnUp = container.querySelector(".step-btn.up");   // Bouton incrémenter
-		const btnDown = container.querySelector(".step-btn.down"); // Bouton décrémenter
+// ===========================
+// GESTION WIKIAPP
+// ===========================
 
-        // Fonctions helper pour récupérer les attributs de l'input
-        // Récupère l'incrément/décrément (step) de l'input, par défaut 1
-        const getStep = () => {
-            const stepAttr = parseFloat(input.getAttribute("step"));
-            return isNaN(stepAttr) ? 1 : stepAttr;
-        };
-        // Récupère la valeur minimale autorisée, par défaut -Infinity (pas de limite)
-        const getMin = () => {
-            const minAttr = parseFloat(input.getAttribute("min"));
-            return isNaN(minAttr) ? -Infinity : minAttr;
-        };
-        // Récupère la valeur maximale autorisée, par défaut +Infinity (pas de limite)
-        const getMax = () => {
-            const maxAttr = parseFloat(input.getAttribute("max"));
-            return isNaN(maxAttr) ? Infinity : maxAttr;
-        };
+// API ENDPOINT : `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${searchInput}`
 
-        // Fonction pour contraindre une valeur entre min et max
-        const clamp = (val) => Math.min(Math.max(val, getMin()), getMax());
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("wiki-form");
+    const input = document.getElementById("wiki-input");
+    const results = document.getElementById("wiki-results");
+    const errorMsg = document.querySelector(".wiki-app__error-msg");
+    const loader = document.querySelector(".wiki-app__loader");
 
-        // Gestion du clic sur le bouton d'incrémentation (+)
-        if (btnUp) {
-            btnUp.addEventListener("click", (e) => {
-                e.preventDefault(); // Empêche le comportement par défaut du bouton
-                // Récupère la valeur actuelle (0 si vide)
-                const current = parseFloat(input.value || "0");
-                // Calcule la nouvelle valeur en ajoutant le step, puis la contraint
-                const next = clamp(current + getStep());
-                // Met à jour l'input si la valeur est valide
-                input.value = Number.isFinite(next) ? next : "";
-                // Déclenche les événements pour notifier les autres écouteurs
-                input.dispatchEvent(new Event("input", { bubbles: true }));
-                input.dispatchEvent(new Event("change", { bubbles: true }));
-            });
+    if (!form || !input || !results || !errorMsg || !loader) {
+        console.warn("WikiApp: éléments manquants dans le DOM");
+        return;
+    }
+
+    const ENDPOINT =
+        "https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=";
+
+    const toggleLoader = (show) => {
+        loader.style.display = show ? "block" : "none";
+    };
+
+    const renderResults = (items) => {
+        results.innerHTML = "";
+        const fragment = document.createDocumentFragment();
+
+        items.forEach(({ title, snippet, pageid }) => {
+            const card = document.createElement("article");
+            card.className = "wiki-card";
+
+            const link = document.createElement("a");
+            link.href = `https://fr.wikipedia.org/?curid=${pageid}`;
+            link.target = "_blank";
+            link.rel = "noopener";
+
+            const h3 = document.createElement("h3");
+            h3.textContent = title;
+
+            const p = document.createElement("p");
+            p.innerHTML = `${snippet}...`;
+
+            link.append(h3, p);
+            card.appendChild(link);
+            fragment.appendChild(card);
+        });
+
+        results.appendChild(fragment);
+    };
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const query = input.value.trim();
+
+        if (!query) {
+            errorMsg.textContent = "Entrez un terme à rechercher.";
+            return;
         }
-        // Gestion du clic sur le bouton de décrémentation (-)
-        if (btnDown) {
-            btnDown.addEventListener("click", (e) => {
-                e.preventDefault(); // Empêche le comportement par défaut du bouton
-                // Récupère la valeur actuelle (0 si vide)
-                const current = parseFloat(input.value || "0");
-                // Calcule la nouvelle valeur en soustrayant le step, puis la contraint
-                const next = clamp(current - getStep());
-                // Met à jour l'input si la valeur est valide
-                input.value = Number.isFinite(next) ? next : "";
-                // Déclenche les événements pour notifier les autres écouteurs
-                input.dispatchEvent(new Event("input", { bubbles: true }));
-                input.dispatchEvent(new Event("change", { bubbles: true }));
-            });
+
+        errorMsg.textContent = "";
+        results.innerHTML = "";
+        toggleLoader(true);
+
+        try {
+            const response = await fetch(`${ENDPOINT}${encodeURIComponent(query)}`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const data = await response.json();
+            const items = data?.query?.search || [];
+
+            if (!items.length) {
+                errorMsg.textContent = "Aucun résultat trouvé.";
+                return;
+            }
+
+            renderResults(items);
+        } catch (err) {
+            console.error("WikiApp fetch error", err);
+            errorMsg.textContent =
+                "Erreur lors de la récupération des résultats. Réessayez.";
+        } finally {
+            toggleLoader(false);
         }
     });
 });
-
-// API ENDPOINT : `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${searchInput}`

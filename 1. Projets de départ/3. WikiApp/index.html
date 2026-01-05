@@ -46,7 +46,7 @@
                 <li class="dropdown-menu-link">
                   <a href="../1. IMC/index.html">1. IMC</a>
                 </li>
-                <li class="dropdown-menu-link active">
+                <li class="dropdown-menu-link">
                   <a href="../2. Quizz/index.html">2. Quiz</a>
                 </li>
                 <!-- Projet actuel (WikiApp) marqué comme active -->
@@ -71,13 +71,17 @@
             <div class="dropdown-menu">
               <ul class="dropdown-menu-links">
                 <li class="dropdown-menu-link">
-                  <a href="../6. CouleursJS/index.html">6. Générateur Dégradés</a>
+                  <a href="../6. CouleursJS/index.html"
+                    >6. Générateur Dégradés</a
+                  >
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../7. Pomodoro/index.html">7. Pomodoro</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../8. ValidationForm/index.html">8. Validation Formulaire</a>
+                  <a href="../8. ValidationForm/index.html"
+                    >8. Validation Formulaire</a
+                  >
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../9. MemoryCard/index.html">9. Jeu Mémoire</a>
@@ -100,13 +104,19 @@
                   <a href="../11. Slider/index.html">11. Slider</a>
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../12. Générateur de mot de passe/index.html">12. Générateur Mot de Passe</a>
+                  <a href="../12. Générateur de mot de passe/index.html"
+                    >12. Générateur Mot de Passe</a
+                  >
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../13. Liste filtrable/index.html">13. Liste Filtrable</a>
+                  <a href="../13. Liste filtrable/index.html"
+                    >13. Liste Filtrable</a
+                  >
                 </li>
                 <li class="dropdown-menu-link">
-                  <a href="../14. CustomLecteurVidéo/index.html">14. Lecteur Vidéo</a>
+                  <a href="../14. CustomLecteurVidéo/index.html"
+                    >14. Lecteur Vidéo</a
+                  >
                 </li>
                 <li class="dropdown-menu-link">
                   <a href="../15. JeuDuMorpion/index.html">15. Jeu Morpion</a>
@@ -147,7 +157,50 @@
     <!-- =========================
       CONTENEUR PRINCIPAL WikiApp
     ========================== -->
-    <section class="container"></section>
+    <section class="container">
+      <!-- En-tête : logo Wikipedia + titre de l'app -->
+      <header>
+        <!-- Logo cliquable renvoyant à la page d'accueil Wikipedia -->
+        <a
+          href="https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
+          target="_blank"
+          rel="noopener"
+          class="logo-link"
+        >
+          <img
+            src="ressources/wiki-logo.png"
+            alt="Logo Wikipedia"
+            class="wiki-app__logo"
+          />
+        </a>
+        <h1 class="title">Recherche <strong>Wikipedia</strong></h1>
+      </header>
+
+      <div class="wiki-app__search">
+        <!-- Formulaire de recherche : input contrôlé + bouton submit -->
+        <form id="wiki-form" class="wiki-app__form">
+          <input
+            type="text"
+            id="wiki-input"
+            class="wiki-app__input"
+            placeholder="Entrez un terme à rechercher..."
+            required
+          />
+          <button type="submit" class="wiki-app__button">Rechercher</button>
+        </form>
+
+        <!-- Zone d'erreur pour les cas vides / API en échec -->
+        <p class="wiki-app__error-msg"></p>
+
+        <!-- Conteneur des résultats de recherche (cartes) -->
+        <div id="wiki-results" class="wiki-app__results"></div>
+
+        <!-- Loader visible pendant la requête API -->
+        <div class="wiki-app__loader">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- Liaison avec le fichier JavaScript qui gère la logique de WikiApp -->
     <script src="app.js"></script>

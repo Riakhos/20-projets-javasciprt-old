@@ -51,6 +51,7 @@ nav.main-nav .nav-content {
 /* Effet hover sur le logo */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
+  outline: none;
   transform: scale(1.12);
   /* Agrandissement */
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
@@ -124,6 +125,7 @@ nav.main-nav .nav-content {
 .dropdown:focus,
 .dropdown-menu-link:hover,
 .dropdown-menu-link:focus {
+  outline: none;
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
@@ -136,6 +138,7 @@ nav.main-nav .nav-content {
 .dropdown.active,
 .dropdown-toggle.active,
 .dropdown-menu-link.active {
+  outline: none;
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
@@ -254,6 +257,7 @@ nav.main-nav .nav-content {
 
 /* Effet hover sur le burger */
 .menu-burger img:hover {
+  outline: none;
   transform: scale(1.1);
 }
 
@@ -299,7 +303,8 @@ body {
 h1,
 h2,
 h3,
-a {
+a,
+label {
   text-align: center;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
@@ -353,6 +358,7 @@ button {
 button:hover,
 button:focus,
 button.active {
+  outline: none;
   background-color: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
@@ -367,6 +373,175 @@ button.active {
   100% {
     background-position: 200% 0;
   }
+}
+
+/* ===================
+  FORMULAIRE WIKIAPP
+====================*/
+
+/* Titre principal sans effet de poids */
+.title {
+  font-weight: normal;
+}
+
+/* En-tête de WikiApp : logo + titre centré */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Logo Wikipedia dimensionné */
+.wiki-app__logo {
+  height: 60px;
+  width: auto;
+}
+
+/* Effet hover sur le logo : léger agrandissement */
+.wiki-app__logo:hover {
+  transform: scale(1.05);
+}
+
+/* Conteneur principal de recherche : formulaire + résultats + loader */
+.wiki-app__search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Formulaire de recherche : input + bouton côte à côte */
+.wiki-app__form {
+  display: flex;
+  width: 100%;
+  gap: 1em;
+  padding: 1em;
+  background-color: rgba(255, 165, 0, 0.1);
+  border: 2px solid #28a745;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  border-radius: 10px;
+}
+
+/* Conteneur de l'input de recherche */
+.wiki-app__input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em;
+  font-size: 1em;
+  border: 2px solid #28a745;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ===========================
+  CHAMPS TEXT
+=========================== */
+/* Input texte avec style cohérent au design global */
+input[type="text"] {
+  padding: 0.5em 1em;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffa500;
+  appearance: textfield;
+}
+
+/* Placeholder avec dégradé animé */
+input[type="text"]::placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 1;
+}
+
+/* Placeholder Webkit (Chrome, Safari, Edge) */
+input[type="text"]::-webkit-input-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+}
+
+/* Placeholder Mozilla (Firefox) */
+input[type="text"]::-moz-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 1;
+}
+
+/* États focus et hover : met en valeur l'input actif */
+input[type="text"]:focus,
+input[type="text"]:hover {
+  outline: none;
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* ===========================
+  ZONE DES RÉSULTATS
+=========================== */
+/* Conteneur des cartes de résultats Wikipedia */
+.wiki-app__results {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1em;
+  padding: 1em;
+  background-color: rgba(255, 165, 0, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Carte individuelle de résultat : titre + snippet */
+.wiki-card {
+  text-align: left;
+  padding: 1em;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Effet hover sur les cartes : mise en valeur au survol */
+.wiki-card:hover, .wiki-card:focus {
+  outline: none;
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  color:#ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
 }
 
 /* ===========================
