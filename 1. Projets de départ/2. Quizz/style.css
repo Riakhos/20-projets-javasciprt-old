@@ -397,7 +397,7 @@ button.active,
 /* Conteneur qui affiche la question actuelle avec style et ombre */
 .question-container {
   padding: 1em;
-  background-color: rgba(255, 165, 0, 0.1);
+  background-color: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
   border-radius: 10px;
@@ -483,7 +483,7 @@ button.active,
   padding: 1em;
   border: 2px solid #28a745;
   border-radius: 10px;
-  background-color: rgba(40, 167, 69, 0.05);
+  background-color: rgba(40, 167, 69, 0.1);
 }
 
 .results-summary p {
@@ -659,8 +659,10 @@ button.active,
   }
 
   .quiz-container {
-    padding: 0.2em;
+    padding: 0;
     border: none;
+    box-shadow: none;
+    background-color: transparent;
   }
 
 }

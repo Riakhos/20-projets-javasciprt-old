@@ -147,7 +147,53 @@
     <!-- =========================
       CONTENEUR PRINCIPAL COOKIES JS
     ========================== -->
-    <section class="container"></section>
+    <section class="container">
+
+      <!-- En-tête : logo Cookies + titre de l'app -->
+      <header>
+        <h1 class="title">Création de <strong>Cookies</strong><span> 🍪</span></h1>
+      </header>
+
+      <!-- Formulaire de gestion des cookies -->
+      <form id="cookie-form" class="cookie-app__form">
+        <div class="input-group">
+          <label for="cookie-name">Son Nom</label>
+          <input type="text" id="cookie-name" name="name" autocomplete="off" required />
+          <label for="cookie-value">Sa Valeur</label>
+          <div class="number-input" data-target="value">
+            <button class="step-btn down" aria-label="Diminuer">−</button>
+            <input type="number" id="cookie-value" name="value" autocomplete="off" step="1" min="0" required />
+            <button class="step-btn up" aria-label="Augmenter">+</button>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn">Créer</button>
+          <button type="button" id="view-cookies" class="btn">Afficher</button>
+        </div>
+      </form>
+
+      <!-- Section pour afficher les cookies existants -->
+      <div id="cookies-list" class="cookies-list hide">
+        <h2>Cookies Existants :</h2>
+        <ul id="cookies-ul" class="cookies-ul">
+            <!-- Les cookies seront listés ici dynamiquement -->
+            <!-- <li class="cookies-app__cookie">
+              <div class="cookies-app__cookie-info">
+                <h3 class="cookies-app__cookie-text"><strong>Nom : </strong>TestCookie</h3>
+                <h3 class="cookies-app__cookie-text"><strong>Valeur : </strong>421</h3>
+              </div>
+              <button class="cookies-app__cookie-btn">X</button>
+            </li> -->
+        </ul>
+      </div>
+      
+      <!-- Toaster notifications -->
+      <div class="toasts-container hide">
+        <!-- Les toasts seront ajoutés ici dynamiquement -->
+      </div>
+      
+    </section>
+    
 
     <!-- Liaison avec le fichier JavaScript qui gère la logique des cookies -->
     <script src="app.js"></script>

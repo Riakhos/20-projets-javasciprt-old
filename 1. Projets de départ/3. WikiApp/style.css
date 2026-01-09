@@ -430,9 +430,9 @@ header {
   width: 100%;
   gap: 1em;
   padding: 1em;
-  background-color: rgba(255, 165, 0, 0.1);
+  background-color: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
-  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
   border-radius: 10px;
 }
 
@@ -521,7 +521,7 @@ input[type="text"]:hover {
   width: 100%;
   gap: 1em;
   padding: 1em;
-  background-color: rgba(255, 165, 0, 0.1);
+  background-color: rgba(40, 167, 69, 0.1);
   border: 2px solid #28a745;
   border-radius: 10px;
 }
@@ -545,8 +545,8 @@ input[type="text"]:hover {
 .wiki-card:hover,
 .wiki-card:focus {
   outline: none;
-  background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
+  background: rgba(255, 165, 0, 0.1);
   color: #ffa500;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
 }
@@ -570,14 +570,14 @@ input[type="text"]:hover {
   height: 18px;
   border-radius: 50%;
   /* Forme circulaire */
-  background: #f7df1e;
-  /* Jaune vif */
+  background: #28a745;
+  /* Vert vif */
   margin: 0 6px;
   /* Espacement entre les points */
   animation: load 0.6s infinite ease-in-out alternate;
   /* Animation rebond alternée infinie */
-  box-shadow: 0 0 15px rgba(247, 223, 30, 0.4);
-  /* Lueur jaune autour du point */
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.4);
+  /* Lueur verte autour du point */
 }
 
 /* Délais d'animation pour créer un effet de vague
@@ -675,8 +675,9 @@ input[type="text"]:hover {
     pointer-events: auto;
   }
 
-  /* Menu fermé */
-  .nav-links:not(.open) {
+  
+  /* Animation de fermeture du menu (se déclenche uniquement quand .closing est ajoutée) */
+  .nav-links.closing {
     animation: slideOutToRight 1s ease forwards;
   }
 
@@ -733,6 +734,17 @@ input[type="text"]:hover {
   .nav-links {
     width: 70%;
   }
+
+  .wiki-app__form {
+    flex-direction: column;
+  }
+
+  .wiki-app__search {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
 }
 
 /* Très petits écrans (≤ 520px) */
@@ -764,5 +776,22 @@ input[type="text"]:hover {
   .dropdown-menu {
     width: 80%;
     top: 110%;
+  }
+
+  input[type="text"] {
+    font-size: 0.7em;
+  }
+
+  .wiki-app__results {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .wiki-card {
+    text-align: center;
+    padding: 0.5em;
+    background: rgba(40, 167, 69, 0.1);
   }
 }

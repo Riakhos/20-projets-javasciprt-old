@@ -1,5 +1,5 @@
 /* ===========================
-  NAVIGATION PRINCIPALE
+    NAVIGATION PRINCIPALE
 =========================== */
 
 /* Barre de navigation fixe avec dégradé et glassmorphism */
@@ -33,7 +33,7 @@ nav.main-nav .nav-content {
 }
 
 /* ===========================
-  LOGO
+    LOGO
 =========================== */
 .logo-link {
     display: flex;
@@ -51,13 +51,14 @@ nav.main-nav .nav-content {
 /* Effet hover sur le logo */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
+    outline: none;
     transform: scale(1.12);
     /* Agrandissement */
     box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
 /* ===========================
-  LIENS DE NAVIGATION
+    LIENS DE NAVIGATION
 =========================== */
 .nav-links {
     display: flex;
@@ -124,6 +125,7 @@ nav.main-nav .nav-content {
 .dropdown:focus,
 .dropdown-menu-link:hover,
 .dropdown-menu-link:focus {
+    outline: none;
     background: rgba(255, 165, 0, 0.1);
     border-color: #ffa500;
     color: #ffa500;
@@ -136,11 +138,12 @@ nav.main-nav .nav-content {
 .dropdown.active,
 .dropdown-toggle.active,
 .dropdown-menu-link.active {
+    outline: none;
     box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
 /* ===========================
-  MENU DROPDOWN
+    MENU DROPDOWN
 =========================== */
 .dropdown-menu {
     position: absolute;
@@ -169,7 +172,7 @@ nav.main-nav .nav-content {
 }
 
 /* ===========================
-  ANIMATIONS DROPDOWN
+    ANIMATIONS DROPDOWN
 =========================== */
 /* Animation d'entrée en cascade depuis la gauche */
 .dropdown.active .dropdown-menu li {
@@ -233,7 +236,7 @@ nav.main-nav .nav-content {
 }
 
 /* ===========================
-  MENU BURGER (MOBILE)
+    MENU BURGER (MOBILE)
 =========================== */
 .menu-burger {
     display: none;
@@ -254,11 +257,12 @@ nav.main-nav .nav-content {
 
 /* Effet hover sur le burger */
 .menu-burger img:hover {
+    outline: none;
     transform: scale(1.1);
 }
 
 /* ===========================
-  BASE ET LAYOUT
+    BASE ET LAYOUT
 =========================== */
 /* Reset global */
 * {
@@ -293,13 +297,14 @@ body {
 }
 
 /* ===========================
-  TYPOGRAPHIE
+    TYPOGRAPHIE
 =========================== */
 /* Titres avec dégradé animé */
 h1,
 h2,
 h3,
-a {
+a,
+label {
     text-align: center;
     background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
     background-size: 200% 100%;
@@ -321,7 +326,7 @@ p {
 }
 
 /* ===========================
-  BOUTONS
+    BOUTONS
 =========================== */
 button {
     margin: auto;
@@ -353,6 +358,7 @@ button {
 button:hover,
 button:focus,
 button.active {
+    outline: none;
     background-color: rgba(255, 165, 0, 0.1);
     border-color: #ffa500;
     box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
@@ -370,7 +376,254 @@ button.active {
 }
 
 /* ===========================
-  RESPONSIVE NAVIGATION
+    EN-TÊTE COOKIES
+=========================== */
+/* Titre principal sans effet de poids */
+.title,
+.cookies-app__cookie-text {
+    font-weight: normal;
+}
+
+/* En-tête de Cookies : logo + titre centré */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em;
+    padding: 1em;
+    position: relative;
+    background: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    border-radius: 10px;
+}
+
+/* ===========================
+    FORMULAIRE COOKIES
+=========================== */
+
+/* Conteneur des inputs */
+.cookie-app__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em;
+    padding: 1em;
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+    border-radius: 10px;
+}
+
+/* Groupe d'input (label + champ) */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    width: 100%;
+    margin-bottom: 0.5em;
+    font-size: 1.2em;
+}
+
+/* ===========================
+CHAMPS NUMBER
+=========================== */
+/* Style de base pour les champs number et text */
+input[type="number"],
+input[type="text"] {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    background: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffa500;
+    appearance: textfield;
+    /* Masque les flèches natives */
+    -moz-appearance: textfield;
+}
+
+/* États focus et hover */
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="number"]:hover,
+input[type="text"]:hover {
+    outline: none;
+    background: rgba(255, 165, 0, 0.1);
+    border-color: #ffa500;
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Masquer les flèches natives (spinners) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Effet hover sur les flèches (pour indiquer qu'elles sont désactivées) */
+input[type="number"]::-webkit-inner-spin-button:hover,
+input[type="number"]::-webkit-outer-spin-button:hover {
+    background: transparent;
+}
+
+/* ===========================
+BOUTONS CUSTOM +/-
+=========================== */
+.number-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5em;
+}
+
+/* Padding pour faire place aux boutons */
+.number-input input[type="number"] {
+    padding-right: 3.5em;
+    padding-left: 3.5em;
+}
+
+/* Style des boutons + et - */
+.step-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: 2px solid #28a745;
+    border-radius: 50%;
+    background: rgba(40, 167, 69, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: transparent;
+    background-image: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+    background-size: 200% 100%;
+    animation: shimmer 5s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.3);
+}
+
+/* Effet hover sur boutons +/- */
+.step-btn:hover,
+.step-btn:focus {
+    background-color: rgba(255, 165, 0, 0.1);
+    border-color: #ffa500;
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Positionnement des boutons */
+.step-btn.down {
+    left: 0.25em;
+}
+
+.step-btn.up {
+    right: 0.25em;
+}
+
+/* Conteneur des boutons d'action */
+.btn-group {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+/* ===========================
+LISTE DES COOKIES
+=========================== */
+
+/* Conteneur de la liste des cookies */
+.cookies-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em;
+    padding: 1em;
+    background: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+    border-radius: 10px;
+}
+
+/* Liste des cookies */
+.cookies-ul {
+    list-style-type: none;
+    margin: 20px auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-gap: 25px;
+}
+
+/* Style individuel pour chaque cookie */
+.cookies-app__cookie {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+    position: relative;
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.cookies-app__cookie-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Effet hover/focus sur chaque cookie */
+.cookies-app__cookie:hover,
+.cookies-app__cookie:focus {
+    outline: none;
+    transform: translateY(-3px);
+    background-color: rgba(255, 165, 0, 0.1);
+    border-color: #ffa500;
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+.cookies-app__cookie-btn {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    transition: all 0.3s ease;
+}
+
+.toasts-container {
+    gap: 1em;
+    margin: 1em;
+    padding: 1em;
+    background-color: rgba(40, 167, 69, 0.5);
+    border: 2px solid #28a745;
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+    border-radius: 10px;
+}
+
+/* Classe utilitaire pour cacher des éléments */
+/* Utilisée pour masquer les boutons et sections selon l'état du quiz */
+.hide {
+    display: none;
+}
+
+/* ===========================
+RESPONSIVE NAVIGATION
 =========================== */
 
 /* Tablettes et petits écrans (≤ 1200px) */
@@ -429,8 +682,8 @@ button.active {
         pointer-events: auto;
     }
 
-    /* Menu fermé */
-    .nav-links:not(.open) {
+    /* Animation de fermeture du menu (se déclenche uniquement quand .closing est ajoutée) */
+    .nav-links.closing {
         animation: slideOutToRight 1s ease forwards;
     }
 
@@ -476,7 +729,8 @@ button.active {
     }
 
     span,
-    p {
+    p,
+    label {
         font-size: 1em;
     }
 
@@ -486,6 +740,16 @@ button.active {
 
     .nav-links {
         width: 70%;
+    }
+
+    .input-group {
+        align-items: center;
+    }
+
+    .cookies-ul {
+        margin: 10px auto;
+        grid-template-columns: repeat(1, minmax(250px, 1fr));
+        grid-gap: 10px;
     }
 }
 
@@ -502,7 +766,8 @@ button.active {
     }
 
     span,
-    p {
+    p,
+    label {
         font-size: 0.8em;
     }
 
@@ -518,5 +783,15 @@ button.active {
     .dropdown-menu {
         width: 80%;
         top: 110%;
+    }
+    
+    .cookies-list {
+        padding: 0.5em;
+    }
+
+    .cookies-ul {
+        margin: 5px;
+        grid-template-columns: repeat(1, minmax(220px, 1fr));
+        grid-gap: 5px;
     }
 }
