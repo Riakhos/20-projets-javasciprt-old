@@ -393,10 +393,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // max-age=0 supprime immédiatement le cookie du navigateur
             document.cookie = `${encodeURIComponent(name)}=; path=/; max-age=0`;
 
+            // Affiche une notification toast pour confirmer la suppression
+            createToast({
+                name: name,
+                state: "supprimée",
+                color: "rgba(255, 107, 107, 0.1)"
+            });
+            
             // Retirer l'élément visuel de la liste
             const li = e.target.closest("li"); // Trouve le <li> parent du bouton
             if (li) {
                 li.remove();
+            }
+
+            // Si la liste est vide après suppression, masquer le conteneur
+            if (cookiesUl.children.length === 0) {
+                cookiesList.classList.add("hide");
             }
         }
     });

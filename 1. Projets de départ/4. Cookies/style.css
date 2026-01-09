@@ -638,6 +638,11 @@ RESPONSIVE NAVIGATION
         padding: 1em;
         max-width: 760px;
     }
+
+    /* Liste des cookies */
+.cookies-ul {    
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+}
 }
 
 /* Tablettes (≤ 820px) */
