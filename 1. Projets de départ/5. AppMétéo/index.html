@@ -148,7 +148,28 @@
     <!-- =============================
       CONTENEUR PRINCIPAL AppMétéo JS
     ============================== -->
-    <section class="container"></section>
+    <section class="container">
+      <!-- En-tête : logo Cookies + titre de l'app -->
+      <header>
+        <h1 class="title">Application <strong>Météo</strong><span> 🌤️</span></h1>
+      </header>
+
+      <div class="weather-app">
+        <form id="weather-form" class="weather-form">
+          <input
+            type="text"
+            id="city-input"
+            class="weather-input"
+            placeholder="Entrez le nom de la ville"
+            required
+          />
+          <button type="submit">Obtenir la météo</button>
+        </form>
+        <div id="weather-result" class="weather-result hide">
+          <!-- Les résultats météo seront affichés ici -->          
+        </div>
+      </div>
+    </section>
 
     <!-- Liaison avec le fichier JavaScript qui gère la logique de l'application météo -->
     <script src="script.js"></script>

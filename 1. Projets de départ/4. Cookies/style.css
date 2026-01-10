@@ -640,9 +640,9 @@ RESPONSIVE NAVIGATION
     }
 
     /* Liste des cookies */
-.cookies-ul {    
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
-}
+    .cookies-ul {    
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
 }
 
 /* Tablettes (≤ 820px) */

@@ -51,6 +51,7 @@ nav.main-nav .nav-content {
 /* Effet hover sur le logo */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
+  outline: none;
   transform: scale(1.12);
   /* Agrandissement */
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
@@ -124,6 +125,7 @@ nav.main-nav .nav-content {
 .dropdown:focus,
 .dropdown-menu-link:hover,
 .dropdown-menu-link:focus {
+  outline: none;
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
@@ -136,6 +138,7 @@ nav.main-nav .nav-content {
 .dropdown.active,
 .dropdown-toggle.active,
 .dropdown-menu-link.active {
+  outline: none;
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
@@ -254,6 +257,7 @@ nav.main-nav .nav-content {
 
 /* Effet hover sur le burger */
 .menu-burger img:hover {
+  outline: none;
   transform: scale(1.1);
 }
 
@@ -353,6 +357,7 @@ button {
 button:hover,
 button:focus,
 button.active {
+  outline: none;
   background-color: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
@@ -370,6 +375,201 @@ button.active {
 }
 
 /* ===========================
+  EN-TÊTE MÉTÉO
+=========================== */
+/* Titre principal sans effet de poids */
+.title {
+  font-weight: normal;
+}
+
+/* En-tête de Météo : logo + titre centré */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* ===========================
+APPLICATION MÉTÉO
+=========================== */
+
+.weather-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+  border-radius: 10px;
+}
+
+/* Résultat météo */
+.weather-result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.weather-card {
+  width: 80%;
+  background: rgba(40, 167, 69, 0.08);
+  border: 2px solid #28a745;
+  border-radius: 12px;
+  padding: 1em 1.2em;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.5);
+}
+
+.weather-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.weather-card h2 {
+  margin: 0;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
+}
+
+.weather-error {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* Grille prévisions 7 jours */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 0.8em;
+  margin-top: 0.8em;
+}
+
+.forecast-day-card {
+  background: rgba(255, 165, 0, 0.08);
+  border: 2px solid #ffa500;
+  border-radius: 10px;
+  padding: 0.6em;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
+.forecast-day {
+  margin: 0 0 0.4em;
+  font-weight: bold;
+}
+
+.forecast-day-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin: 0.2em auto 0.4em;
+}
+
+.forecast-temps {
+  margin: 0;
+}
+
+/* ===========================
+  FORMULAIRE MÉTÉO
+=========================== */
+
+.weather-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+/* Champ de saisie */
+.weather-input {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: bold;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffa500;
+  appearance: textfield;
+  /* Masque les flèches natives */
+  -moz-appearance: textfield;
+}
+
+/* États focus et hover */
+.weather-input:focus,
+.weather-input:hover {
+  outline: none;
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Placeholder avec dégradé animé */
+.weather-input::placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 1;
+}
+
+/* Placeholder Webkit (Chrome, Safari, Edge) */
+.weather-input::-webkit-input-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+}
+
+/* Placeholder Mozilla (Firefox) */
+.weather-input::-moz-placeholder {
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  background-size: 200% 100%;
+  animation: shimmer 5s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 1;
+}
+
+/* Classe utilitaire pour cacher des éléments */
+/* Utilisée pour masquer les boutons et sections selon l'état du quiz */
+.hide {
+  display: none;
+}
+
+/* ===========================
   RESPONSIVE NAVIGATION
 =========================== */
 
@@ -384,6 +584,10 @@ button.active {
   .container {
     padding: 1em;
     max-width: 760px;
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
 }
 
@@ -429,8 +633,8 @@ button.active {
     pointer-events: auto;
   }
 
-  /* Menu fermé */
-  .nav-links:not(.open) {
+  /* Animation de fermeture du menu (se déclenche uniquement quand .closing est ajoutée) */
+  .nav-links.closing {
     animation: slideOutToRight 1s ease forwards;
   }
 
@@ -476,8 +680,14 @@ button.active {
   }
 
   span,
-  p {
+  p,
+  h2 {
     font-size: 1em;
+  }
+
+  .weather-input {
+    font-size: 0.8em;
+    font-weight: normal;
   }
 
   .container {
@@ -486,6 +696,11 @@ button.active {
 
   .nav-links {
     width: 70%;
+  }
+
+  
+  .forecast-grid {
+    grid-template-columns: repeat(1, minmax(120px, 1fr));
   }
 }
 
@@ -502,8 +717,15 @@ button.active {
   }
 
   span,
-  p {
+  p,
+  h2 {
     font-size: 0.8em;
+  }
+
+  .weather-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .container {
@@ -518,5 +740,9 @@ button.active {
   .dropdown-menu {
     width: 80%;
     top: 110%;
+  }
+
+  .weather-card__header {
+    flex-direction: column;
   }
 }
