@@ -51,6 +51,7 @@ nav.main-nav .nav-content {
 /* Effet hover sur le logo */
 .logo-link:hover .logo-img,
 .logo-link:focus .logo-img {
+  outline: none;
   transform: scale(1.12);
   /* Agrandissement */
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
@@ -124,6 +125,7 @@ nav.main-nav .nav-content {
 .dropdown:focus,
 .dropdown-menu-link:hover,
 .dropdown-menu-link:focus {
+  outline: none;
   background: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   color: #ffa500;
@@ -136,6 +138,7 @@ nav.main-nav .nav-content {
 .dropdown.active,
 .dropdown-toggle.active,
 .dropdown-menu-link.active {
+  outline: none;
   box-shadow: 0 0 12px 2px #ffa500, 0 2px 8px rgba(255, 165, 0, 0.6);
 }
 
@@ -254,6 +257,7 @@ nav.main-nav .nav-content {
 
 /* Effet hover sur le burger */
 .menu-burger img:hover {
+  outline: none;
   transform: scale(1.1);
 }
 
@@ -279,6 +283,10 @@ body {
 
 /* Conteneur principal avec glassmorphism */
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem 2rem;
@@ -299,7 +307,9 @@ body {
 h1,
 h2,
 h3,
-a {
+a,
+label,
+.gradient-app__orientation-value {
   text-align: center;
   background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
   background-size: 200% 100%;
@@ -313,7 +323,8 @@ a {
 
 /* Textes normaux */
 span,
-p {
+p,
+code {
   font-size: 1.2em;
   opacity: 0.9;
   -webkit-text-fill-color: currentColor;
@@ -353,6 +364,7 @@ button {
 button:hover,
 button:focus,
 button.active {
+  outline: none;
   background-color: rgba(255, 165, 0, 0.1);
   border-color: #ffa500;
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
@@ -367,6 +379,321 @@ button.active {
   100% {
     background-position: 200% 0;
   }
+}
+
+/* ===========================
+  EN-TÊTE ET TITRE PRINCIPAL
+=========================== */
+/* Titre principal sans effet de poids */
+.title {
+  font-weight: normal;
+}
+
+/* En-tête : logo + titre centré avec bordure verte */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Bloc de description avec fond orange */
+.gradient-app__description {
+  width: 80%;
+  background: rgba(255, 165, 0, 0.1);
+  border: 2px solid #ffa500;
+  border-radius: 12px;
+  padding: 1em 1.2em;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.5);
+}
+
+/* ===========================
+  API COLORJS - CONTENEUR PRINCIPAL
+=========================== */
+/* Conteneur principal de l'application de dégradés */
+.gradient-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+  border-radius: 10px;
+}
+
+/* ===========================
+  GROUPES DE SAISIE
+=========================== */
+/* Groupe contenant les inputs de couleur */
+.gradient-app__input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+
+/* ===========================
+  CHAMPS DE COULEUR
+=========================== */
+/* Champ de saisie pour les couleurs (color picker) */
+.gradient-app__color-input {
+  font-size: 1em;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffa500;
+  padding: 0.5em;
+  height: 50px;
+}
+
+/* États focus et hover pour les champs de couleur */
+.gradient-app__color-input:focus,
+.gradient-app__color-input:hover {
+  outline: none;
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* ===========================
+  SLIDERS (RANGE)
+=========================== */
+/* Groupe contenant le slider et son label */
+.gradient-app__range-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+  border-radius: 10px;
+}
+
+/* Style de base du slider (range input) */
+.gradient-app__range {
+  width: 100px;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg,
+      #f7df1e 0%,
+      #ffa500 var(--volume-percent, 100%),
+      rgba(40, 167, 69, 0.1) var(--volume-percent, 100%),
+      rgba(40, 167, 69, 0.1) 100%);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(247, 223, 30, 0.2);
+}
+
+/* Piste du slider - Firefox */
+.gradient-app__range::-moz-range-track {
+  background: linear-gradient(90deg,
+      #f7df1e 0%,
+      #ffa500 var(--volume-percent, 100%),
+      rgba(40, 167, 69, 0.1) var(--volume-percent, 100%),
+      rgba(40, 167, 69, 0.1) 100%);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  height: 8px;
+}
+
+/* Curseur du slider - Webkit (Chrome, Safari, Edge) */
+.gradient-app__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+}
+
+/* Curseur du slider - Firefox */
+.gradient-app__range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(90deg, #f7df1e, #ffa500, #f7df1e);
+  border: 2px solid #28a745;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+}
+
+/* États hover/focus du slider - changement vers orange */
+.gradient-app__range:hover,
+.gradient-app__range:focus {
+  background: linear-gradient(90deg,
+      #ffa500 0%,
+      #f7df1e var(--volume-percent, 100%),
+      rgba(255, 165, 0, 0.1) var(--volume-percent, 100%),
+      rgba(255, 165, 0, 0.1) 100%);
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+/* Effet hover sur le curseur Webkit avec agrandissement */
+.gradient-app__range:hover::-webkit-slider-thumb,
+.gradient-app__range:focus::-webkit-slider-thumb {
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  transform: scale(1.1);
+}
+
+/* Effet hover sur le curseur Firefox avec agrandissement */
+.gradient-app__range:hover::-moz-range-thumb,
+.gradient-app__range:focus::-moz-range-thumb {
+  border-color: #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  transform: scale(1.1);
+}
+
+/* ===========================
+  BOUTONS D'ACTION
+=========================== */
+
+/* Conteneur des boutons d'action */
+.gradient-app__btns {
+  display: flex;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+/* ===========================
+  ANIMATION COPIE RÉUSSIE
+=========================== */
+
+/* Effet de confirmation "Copié !" */
+.js-active-copy-btn {
+  position: relative;
+  animation: copySuccess 0.6s ease;
+}
+
+/* Texte "Copié !" qui apparaît au-dessus du bouton */
+.js-active-copy-btn::after {
+  content: "✓ Copié !";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 165, 0, 0.1);
+  border: 2px solid #ffa500;
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  -webkit-text-fill-color: currentColor;
+  color: #ffa500;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
+  animation: copyFeedback 2s ease-out forwards;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Animation du feedback "Copié !" */
+@keyframes copyFeedback {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px) scale(0.8);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px) scale(0.9);
+  }
+}
+
+/* Animation du bouton lui-même (pulsation verte) */
+@keyframes copySuccess {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.8), 0 0 30px rgba(32, 201, 151, 0.6);
+    border-color: #28a745;
+  }
+}
+
+/* ===========================
+  ZONE D'AFFICHAGE DU DÉGRADÉ
+=========================== */
+/* Conteneur affichant le dégradé généré */
+.gradient-app__css-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  border-radius: 10px;
+}
+
+/* Bloc affichant le code CSS généré */
+.gradient-app__css-code {
+  width: 100%;
+  background: rgba(255, 165, 0, 0.1);
+  border: 2px solid #ffa500;
+  border-radius: 12px;
+  padding: 1em 1.2em;
+  box-shadow: 0 0 12px rgba(40, 167, 69, 0.5);
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  color: #222;
+}
+
+/* Classe utilitaire pour cacher des éléments */
+/* Utilisée pour masquer les boutons et sections selon l'état du quiz */
+.hide {
+  display: none;
 }
 
 /* ===========================
@@ -429,8 +756,9 @@ button.active {
     pointer-events: auto;
   }
 
-  /* Menu fermé */
-  .nav-links:not(.open) {
+
+  /* Animation de fermeture du menu (se déclenche uniquement quand .closing est ajoutée) */
+  .nav-links.closing {
     animation: slideOutToRight 1s ease forwards;
   }
 
@@ -518,5 +846,17 @@ button.active {
   .dropdown-menu {
     width: 80%;
     top: 110%;
+  }
+
+  .gradient-app__input-group {
+    flex-direction: column;
+  }
+
+  .gradient-app__range-group {
+    flex-direction: column;
+  }
+
+  .gradient-app {
+    max-width: 280px;
   }
 }

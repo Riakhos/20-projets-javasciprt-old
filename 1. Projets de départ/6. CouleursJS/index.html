@@ -146,7 +146,98 @@
         <!-- ==============================
             CONTENEUR PRINCIPAL CouleursJS
         =============================== -->
-        <section class="container"></section>
+        <section class="container">
+            <!-- En-tête : logo CouleursJS + titre de l'app -->
+            <header>
+                <h1 class="title">Application <strong>Dégradé de couleurs</strong><span> 🎨</span></h1>
+                <div class="gradient-app__description">
+                    <p>
+                        Créez des dégradés linéaires personnalisés en choisissant deux
+                        couleurs.
+                    </p>
+                    <p>
+                        Utilisez le sélecteur de couleurs pour choisir vos couleurs, ajustez
+                        l'orientation du dégradé et copiez le code CSS généré.
+                    </p>
+                    <p>
+                        Vous pouvez également générer un dégradé aléatoire en cliquant sur
+                        le bouton <span>🎲</span>.
+                    </p>
+                    <p>Le code CSS du dégradé sera affiché ci-dessous.</p>
+                </div>
+            </header>
+
+            <!-- Section principale avec le générateur de dégradés -->
+            <div class="gradient-app">
+                <!-- Sélecteur couleur 1 -->
+                <div class="gradient-app__input-group">
+                    <label for="gradient-color-1" class="gradient-app__color-label">
+                        #f7df1e
+                    </label>
+                    <input
+                        type="color"
+                        class="gradient-app__color-input"
+                        id="gradient-color-1"
+                        placeholder="#f7df1e"
+                    />
+                </div>
+
+                <!-- Sélecteur couleur 2 -->
+                <div class="gradient-app__input-group">
+                    <label for="gradient-color-2" class="gradient-app__color-label">
+                        #ffa500
+                    </label>
+                    <input
+                        type="color"
+                        class="gradient-app__color-input"
+                        id="gradient-color-2"
+                        placeholder="#ffa500"
+                    />
+                </div>
+
+                <!-- Contrôle d'orientation du dégradé -->
+                <div class="gradient-app__range-group">
+                    <label for="orientation" class="gradient-app__range-label">
+                        <strong>Orientation :</strong>
+                        <span class="gradient-app__orientation-value">90°</span>
+                    </label>
+                    <input
+                        type="range"
+                        class="gradient-app__range"
+                        id="orientation"
+                        min="0"
+                        max="360"
+                        value="90"
+                    />
+                </div>
+
+                <!-- Boutons d'action -->
+                <div class="gradient-app__btns">
+                    <button
+                        class="gradient-app__btn gradient-app__copy-button js-copy-btn"
+                    >
+                        Copier
+                    </button>
+                    <button
+                        aria-label="Générer un dégradé linéaire au hasard"
+                        class="gradient-app__btn js-random-btn"
+                    >
+                        <span>🎲 </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Affichage du code CSS généré -->
+            <div class="gradient-app__css-display hide">
+                <h3 class="gradient-app__css-title">Code CSS généré :</h3>
+                <div class="gradient-app__css-code">
+                    <code id="css-output">
+                        background: linear-gradient(90deg, #f7df1e, #ffa500);
+                    </code>
+                </div>
+            </div>
+            
+        </section>
 
         <!-- Liaison avec le fichier JavaScript qui gère la logique du dégradé de couleurs -->
         <script src="app.js"></script>

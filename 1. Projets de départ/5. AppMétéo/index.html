@@ -156,13 +156,16 @@
 
       <div class="weather-app">
         <form id="weather-form" class="weather-form">
-          <input
+          <div class="weather-app-input">
+            <label for="city-input">Entrez le nom de la ville ou le code postale</label>
+            <input
             type="text"
             id="city-input"
             class="weather-input"
-            placeholder="Entrez le nom de la ville"
+            placeholder="Ville"
             required
-          />
+            />
+          </div>
           <button type="submit">Obtenir la météo</button>
         </form>
         <div id="weather-result" class="weather-result hide">

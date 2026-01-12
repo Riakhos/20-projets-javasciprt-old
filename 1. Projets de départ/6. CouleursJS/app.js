@@ -26,10 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Toggle la classe 'open' pour afficher/masquer la navigation mobile
         burger.addEventListener("click", () => {
             // Bascule entre l'état ouvert et fermé
-            navUl.classList.toggle("open");
+            const isOpen = navUl.classList.contains("open");
+            if (isOpen) {
+                // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                navUl.classList.add("closing");
+                // Retire la classe 'open' après l'animation (1s)
+                setTimeout(() => {
+                    navUl.classList.remove("open", "closing");
+                }, 1000);
+            } else {
+                // Retire la classe 'closing' et ajoute 'open' pour ouvrir le menu
+                navUl.classList.remove("closing");
+                navUl.classList.add("open");
+            }
             // Change l'icône du burger en fonction de l'état du menu
             burger.src = navUl.classList.contains("open")
-                ? "./assets/close.svg"  // Icône de fermeture quand le menu est ouvert
+                ? "./assets/close.svg" // Icône de fermeture quand le menu est ouvert
                 : "./assets/burger.svg"; // Icône burger par défaut
         });
 
@@ -46,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fermer le menu quand on clique sur un lien en mode mobile
         // Améliore l'UX en fermant automatiquement le menu après navigation
-        
+
         // Sélectionner tous les liens directs sauf les dropdown-toggle
         const navLinks = navUl.querySelectorAll("a:not(.dropdown-toggle)");
         // Ajouter aussi tous les liens dans les dropdown-menu
@@ -60,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
             link.addEventListener("click", () => {
                 // Uniquement en mode mobile (largeur <= 820px)
                 if (window.innerWidth <= 820) {
-                    // Fermer le menu et réinitialiser l'icône
-                    navUl.classList.remove("open");
-                    burger.src = "./assets/burger.svg";
+                    // Ajoute la classe 'closing' pour déclencher l'animation de sortie
+                    navUl.classList.add("closing");
+                    // Retire la classe 'open' après l'animation (1s)
+                    setTimeout(() => {
+                        navUl.classList.remove("open", "closing");
+                        burger.src = "./assets/burger.svg";
+                    }, 1000);
                 }
             });
         });
@@ -148,68 +164,193 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ===================================
-    // BOUTONS CUSTOM POUR INPUT NUMBER
-    // ===================================
-	// Création de boutons +/- stylisés pour remplacer les flèches natives des inputs number
-	// Permet un meilleur contrôle visuel et une meilleure expérience utilisateur
-	
-	const numberContainers = document.querySelectorAll(".number-input");
-	numberContainers.forEach((container) => {
-		// Récupération des éléments pour chaque container d'input
-		const input = container.querySelector('input[type="number"]');
-		const btnUp = container.querySelector(".step-btn.up");   // Bouton incrémenter
-		const btnDown = container.querySelector(".step-btn.down"); // Bouton décrémenter
+    // =============================================
+    // GÉNÉRATEUR DE DÉGRADÉS - LOGIQUE PRINCIPALE
+    // =============================================
+    
+    // Références DOM utilisées par l'outil de dégradé
+    const colorLabels = document.querySelectorAll(".gradient-app__color-label");
+    const colorInputs = [...document.querySelectorAll(".gradient-app__color-input")];
+    const gradientBodyApp = document.querySelector("body");
+    const rangeLabelValue = document.querySelector(".gradient-app__orientation-value");
+    const rangeInput = document.querySelector(".gradient-app__range");
+    
+    // Sélectionner le bouton de copie et ajouter l'écouteur
+    const copyBtn = document.querySelector(".js-copy-btn");
+    const cssDisplay = document.querySelector(".gradient-app__css-display");
+    const cssOutput = document.getElementById("css-output");
+    
+    // Sélectionner le bouton aléatoire
+    const randomGradientBtn = document.querySelector(".js-random-btn");
 
-        // Fonctions helper pour récupérer les attributs de l'input
-        // Récupère l'incrément/décrément (step) de l'input, par défaut 1
-        const getStep = () => {
-            const stepAttr = parseFloat(input.getAttribute("step"));
-            return isNaN(stepAttr) ? 1 : stepAttr;
-        };
-        // Récupère la valeur minimale autorisée, par défaut -Infinity (pas de limite)
-        const getMin = () => {
-            const minAttr = parseFloat(input.getAttribute("min"));
-            return isNaN(minAttr) ? -Infinity : minAttr;
-        };
-        // Récupère la valeur maximale autorisée, par défaut +Infinity (pas de limite)
-        const getMax = () => {
-            const maxAttr = parseFloat(input.getAttribute("max"));
-            return isNaN(maxAttr) ? Infinity : maxAttr;
-        };
+    // État du dégradé (angle + palette)
+    const gradientData = {
+        angle: 90, // Angle en degrés
+        colors: ["#f7df1e", "#ffa500"], // Palette JavaScript
+    };
 
-        // Fonction pour contraindre une valeur entre min et max
-        const clamp = (val) => Math.min(Math.max(val, getMin()), getMax());
+    /**
+        * Met à jour l'UI et le body avec les valeurs courantes
+        * @return {void}
+    **/
+    function updateGradient() {
+        const color1 = gradientData.colors[0];
+        const color2 = gradientData.colors[1];
+        const angle = gradientData.angle;
 
-        // Gestion du clic sur le bouton d'incrémentation (+)
-        if (btnUp) {
-            btnUp.addEventListener("click", (e) => {
-                e.preventDefault(); // Empêche le comportement par défaut du bouton
-                // Récupère la valeur actuelle (0 si vide)
-                const current = parseFloat(input.value || "0");
-                // Calcule la nouvelle valeur en ajoutant le step, puis la contraint
-                const next = clamp(current + getStep());
-                // Met à jour l'input si la valeur est valide
-                input.value = Number.isFinite(next) ? next : "";
-                // Déclenche les événements pour notifier les autres écouteurs
-                input.dispatchEvent(new Event("input", { bubbles: true }));
-                input.dispatchEvent(new Event("change", { bubbles: true }));
+        // Affiche les valeurs en texte
+        colorLabels[0].textContent = color1;
+        colorLabels[1].textContent = color2;
+
+        // Synchronise les color inputs
+        colorInputs[0].value = color1;
+        colorInputs[1].value = color2;
+
+        // Applique les couleurs sur les pastilles de label
+        colorLabels[0].style.backgroundColor = color1;
+        colorLabels[1].style.backgroundColor = color2;
+
+        // Applique le dégradé sur le body
+        gradientBodyApp.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2}, ${color1})`;
+
+        // Affiche l'angle courant à côté du slider
+        rangeLabelValue.textContent = `${angle}°`;
+    }
+
+    // Initialiser l'affichage du dégradé au chargement de la page
+    updateGradient();
+    
+    // Initialiser le pourcentage du slider
+    const volumePercent = (rangeInput.value / rangeInput.max) * 100;
+    rangeInput.style.setProperty("--volume-percent", `${volumePercent}%`);
+
+    // ===========================
+    // GESTION DE L'ANGLE DU DÉGRADÉ
+    // ===========================
+
+    // Slider angle → met à jour l'état et rafraîchit l'affichage
+    rangeInput.addEventListener("input", updateGradientAngle);
+
+    /**
+        * Met à jour l'angle du dégradé depuis le range input
+    **/
+    function updateGradientAngle() {
+        // Mettre à jour l'état
+        gradientData.angle = rangeInput.value;
+
+        // Calculer le pourcentage de remplissage du slider (0-360 degrés)
+        const volumePercent = (rangeInput.value / rangeInput.max) * 100;
+        rangeInput.style.setProperty("--volume-percent", `${volumePercent}%`);
+
+        // Rafraîchir l'interface
+        updateGradient();
+    }
+    
+    // ===========================
+    // GESTION DES COULEURS
+    // ===========================
+
+    // Inputs couleur → mise à jour de la palette
+    colorInputs.forEach((input) =>
+        input.addEventListener("input", colorInputModification)
+    );
+
+    /**
+        * Gère la modification des couleurs via les color inputs
+        * @param {Event} e - Événement input du color input
+    **/
+    function colorInputModification(e) {
+        // Déterminer quel input a changé
+        const currentColorInputIndex = colorInputs.indexOf(e.target);
+
+        // Mettre à jour la couleur correspondante (en majuscules)
+        gradientData.colors[currentColorInputIndex] = e.target.value.toUpperCase();
+
+        // Rafraîchir l'interface avec la nouvelle couleur
+        updateGradient();
+    }
+
+    // ===========================
+    // GESTION DE LA COPIE DU DÉGRADÉ
+    // ===========================
+
+    copyBtn.addEventListener("click", handleGradientCopy);
+
+    // Verrou pour empêcher les clics multiples pendant l'animation
+    let lock = false;
+
+    /**
+     * Gère la copie du dégradé CSS dans le presse-papiers
+     * Génère la chaîne CSS complète et déclenche l'animation de confirmation
+     */
+    function handleGradientCopy() {
+        // Protection contre les clics multiples
+        if (lock) return;
+        lock = true;
+
+        // Construire la chaîne de dégradé CSS complète
+        const gradient = `linear-gradient(${gradientData.angle}deg, ${gradientData.colors[0]}, ${gradientData.colors[1]}, ${gradientData.colors[0]})`;
+        const fullCSSRule = `background: ${gradient};`;
+
+        // Copier dans le presse-papiers (API moderne)
+        navigator.clipboard
+            .writeText(gradient)
+            .then(() => {
+                console.log("📋 Dégradé copié:", gradient);
+            })
+            .catch((err) => {
+                console.error("❌ Erreur lors de la copie:", err);
             });
+
+        // Afficher le code CSS généré
+        cssOutput.textContent = fullCSSRule;
+        cssDisplay.classList.remove("hide");
+
+        // Déclencher l'animation de confirmation "Copié !"
+        copyBtn.classList.add("js-active-copy-btn");
+
+        // Réinitialiser après l'animation (1 seconde)
+        setTimeout(() => {
+            copyBtn.classList.remove("js-active-copy-btn");
+            lock = false; // Libérer le verrou pour permettre une nouvelle copie
+        }, 1000);
+    }
+    
+    // ===========================
+    // GÉNÉRATION DE DÉGRADÉ ALÉATOIRE
+    // ===========================
+
+    // Ajouter l'écouteur au bouton
+    randomGradientBtn.addEventListener("click", createRandomGradient);
+
+    /**
+     * Génère un dégradé aléatoire avec deux couleurs hexadécimales complètement aléatoires
+     * Utilise l'algorithme Math.random() pour créer des combinaisons de couleurs uniques
+     */
+    function createRandomGradient() {
+        console.log("🎲 Génération d'un dégradé aléatoire...");
+
+        // Boucle pour générer autant de couleurs que d'inputs disponibles
+        for (let i = 0; i < colorLabels.length; i++) {
+            // Générer un nombre aléatoire entre 0 et 16777215 (0xFFFFFF en décimal)
+            // 16777216 = 256³ représente toutes les combinaisons RGB possibles
+            const randomDecimal = Math.floor(Math.random() * 16777216);
+
+            // Convertir en hexadécimal et assurer 6 caractères avec padStart
+            const hexString = randomDecimal.toString(16).padStart(6, "0");
+
+            // Construire la couleur hexadécimale complète avec #
+            const randomColor = `#${hexString}`;
+
+            // Stocker en majuscules pour la cohérence
+            gradientData.colors[i] = randomColor.toUpperCase();
+
+            console.log(`🎨 Couleur ${i + 1} générée: ${randomColor.toUpperCase()}`);
         }
-        // Gestion du clic sur le bouton de décrémentation (-)
-        if (btnDown) {
-            btnDown.addEventListener("click", (e) => {
-                e.preventDefault(); // Empêche le comportement par défaut du bouton
-                // Récupère la valeur actuelle (0 si vide)
-                const current = parseFloat(input.value || "0");
-                // Calcule la nouvelle valeur en soustrayant le step, puis la contraint
-                const next = clamp(current - getStep());
-                // Met à jour l'input si la valeur est valide
-                input.value = Number.isFinite(next) ? next : "";
-                // Déclenche les événements pour notifier les autres écouteurs
-                input.dispatchEvent(new Event("input", { bubbles: true }));
-                input.dispatchEvent(new Event("change", { bubbles: true }));
-            });
-        }
-    });
+
+        // Rafraîchir l'interface avec les nouvelles couleurs aléatoires
+        updateGradient();
+
+        console.log("✅ Dégradé aléatoire appliqué:", gradientData.colors);
+    }
 });
